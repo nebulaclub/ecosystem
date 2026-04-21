@@ -928,6 +928,16 @@
       });
     });
   });
+// --- Add this block for randomizing figures ---
+    const grid = document.getElementById('figuresGrid');
+    const figuresArray = Array.from(grid.children);
+    for (let i = figuresArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [figuresArray[i], figuresArray[j]] = [figuresArray[j], figuresArray[i]];
+    }
+    // Append in new order
+    figuresArray.forEach(figure => grid.appendChild(figure));
+  });
 </script>
 </body>
 </html>
