@@ -168,10 +168,11 @@
   height: 100vh;
 }
 
+/* Refresh button fixed at bottom left with no extra left margin */
 #refreshBtn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 20px; /* bottom position */
+  left: 20px;   /* left position to room */
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -1016,11 +1017,11 @@
   </div>
 </div>
 
-<!-- Permanent Refresh Button -->
+<!-- Fixed Refresh Button at bottom left -->
 <button id="refreshBtn" title="Refresh" style="
   position: fixed;
-  top: 20px;
-  left: 20px;
+  bottom: 20px; /* bottom position */
+  left: 20px;   /* left position to room */
   width: 50px;
   height: 50px;
   border-radius: 50%;
