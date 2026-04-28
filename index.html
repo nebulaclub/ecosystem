@@ -8,23 +8,10 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'Ubuntu', Arial, sans-serif;
-    background: #f0f4f8;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 0;
-    color: #222;
-  }
-
- <!-- Mutual Aid Button fixed to top left -->
-<div style="position: fixed; top: 10px; left: 10px; z-index: 9999;">
-  <div style="margin: 10px 0;">
-    <button onclick="showNext()">Next Mutual Aid</button>
-    <div id="nextAidDisplay" style="margin-top: 8px; font-weight: bold; color: #0AC18E;"></div>
-  </div>
+ <!-- Mutual Aid Button -->
+<div style="margin: 10px 0;">
+  <button onclick="showNext()">Next Mutual Aid</button>
+  <div id="nextAidDisplay" style="margin-top: 8px; font-weight: bold; color: #0AC18E;"></div>
 </div>
 
 <script>
@@ -46,6 +33,17 @@ function display(date) {
   document.getElementById('nextAidDisplay').textContent='Next aid: '+date.toDateString();
 }
 </script>
+ 
+  body {
+    font-family: 'Ubuntu', Arial, sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 0;
+    color: #222;
+  }
 
   /* Hide support banner styles */
   #support-banner,
