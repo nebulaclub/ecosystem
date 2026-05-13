@@ -20,9 +20,8 @@
     color: #222;
   }
 
-<!-- Place this div at the very top of your body, after <body> -->
 <div
-  id="aidMondayLine"
+  id="aidMondayLink"
   style="
     width: 100%;
     text-align: center;
@@ -32,23 +31,14 @@
     color: #0AC18E;
     cursor: pointer;
   "
-  onclick="alert(
-    'Mutual Aid Monday is a community-driven initiative where participants contribute BCH to support mutual aid projects, charities, or community efforts. The contributions are pooled and distributed periodically, fostering collective support.\\n\\n' +
-    'Who participates in Mutual Aid Monday?\\n\\n' +
-    'Anyone in the community can contribute BCH and participate in mutual aid efforts. Contributions are voluntary and aim to strengthen community resilience.\\n\\n' +
-    'Where are the funds held?\\n\\n' +
-    'In a transparent, on-chain wallet, allowing verification of all transactions via Bitcoin Cash block explorers.'
-  )"
+  onclick="alert('Mutual Aid Monday is a community-driven initiative where participants contribute BCH to support mutual aid projects, charities, or community efforts. Contributions are pooled and distributed periodically to foster collective support.\n\n' + 
+  'Who participates?\n' + 
+  'Anyone in the community can contribute BCH voluntarily to participate and help strengthen community resilience.\n\n' + 
+  'Where are funds stored?\n' + 
+  'In a transparent, on-chain wallet, allowing anyone to verify transactions via Bitcoin Cash block explorers.');"
 >
   #MutualAidMonday
 </div>
-
-  /* Hide support banner styles */
-  #support-banner,
-  #support-content,
-  #support-header {
-    display: none;
-  }
 
   /* Title styles */
   #title {
