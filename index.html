@@ -22,33 +22,14 @@
     align-items: center;
   }
 
-  /* Loader styles */
+  /* Loader styles - removed spinner and loading text */
   #loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 9999;
-  }
-  #loader .spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #0AC18E;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    display: none; /* Hidden since loading spinner is removed */
   }
 
-  /* Content hidden initially */
+  /* Content hidden initially, shown after images load or immediately if no images */
   #main-content {
-    display: none;
+    display: block;
     width: 100%;
     max-width: 1400px;
     padding: 20px;
@@ -177,12 +158,17 @@
 </head>
 <body>
 
+<!-- Loader spinner - removed spinner -->
+<div id="loader">
+  <!-- No spinner or loading text -->
+</div>
+
 <!-- Main content is visible immediately -->
 <div id="main-content">
   <!-- Your content with all figures -->
   <div id="aidMondayLink" onclick="alert('Discover Mutual Aid Monday support for projects at Silver, Gold and Platinum tiers. Gifts are discretionary and not guaranteed.');">
     #MutualAidMonday
- </div>
+  </div>
   
   <h1 id="title">AGORA</h1>
   <div id="buttons-container">
