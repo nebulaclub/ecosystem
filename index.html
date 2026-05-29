@@ -66,21 +66,51 @@
     }
   }
 
-  /* Mutual Aid Link */
-  #aidMondayLink {
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 1.2em;
-    color: #0AC18E;
-    cursor: pointer;
-    transition: color 0.3s, transform 0.3s;
+ <!-- Main Content -->
+<div id="main-content" style="
+  position: absolute; 
+  top: 10px; 
+  left: 10px; 
+  z-index: 9999; 
+  background-color: #f0f0f0; 
+  padding: 15px 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 250px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+">
+  <div class="content-wrapper" style="color: #333;">
+    <!-- Top Mutual Aid Link -->
+    <div id="aidMondayLink" onclick="toggleBlurb();" style="
+      cursor: pointer; 
+      font-weight: bold; 
+      transition: background-color 0.3s, color 0.3s;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: block;
+      margin-bottom: 8px;
+    " onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.color='#000';" onmouseout="this.style.backgroundColor=''; this.style.color='#333';">
+      #MutualAidMonday
+    </div>
+    <!-- Blurb Text (hidden by default) -->
+    <div id="aidBlurb" style="display: none; font-size: 13px; line-height: 1.4;">
+      Join us this Monday for mutual aid efforts and community support.
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleBlurb() {
+    const blurb = document.getElementById('aidBlurb');
+    if (blurb.style.display === 'none') {
+      blurb.style.display = 'block';
+    } else {
+      blurb.style.display = 'none';
+    }
   }
-  #aidMondayLink:hover {
-    color: #66a6ff;
-    transform: scale(1.05);
-  }
+</script>
 
   /* Buttons and search container */
   #controls {
