@@ -66,30 +66,48 @@
     }
   }
 
-  /* Mutual Aid Link */
-  #aidMondayLink {
+  /* Controls: Button + Search + Filter tags (beneath search) */
+  #controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
     width: 100%;
-    text-align: center;
-    margin: 10px 0;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 1.2em;
-    color: #0AC18E;
-    cursor: pointer;
-    transition: color 0.3s, transform 0.3s;
-  }
-  #aidMondayLink:hover {
-    color: #66a6ff;
-    transform: scale(1.05);
   }
 
-  /* Buttons and search container */
-  #controls {
+  /* Top row: button + search input */
+  #top-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  /* Small filter tags for "Mutual Aid" and "Friday Film" below search input */
+  #filterTags {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    width: 100%;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* Style for "Mutual Aid" and "Friday Film" tags */
+  .filter-tag {
+    padding: 4px 8px;
+    font-size: 0.75em;
+    border: none;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .filter-tag:hover {
+    background: #e0f7fa;
+    transform: scale(1.05);
   }
 
   /* Mature Content Button */
@@ -110,7 +128,7 @@
     transform: scale(1.05);
   }
 
-  /* Search input */
+  /* Search input style */
   #searchInput {
     padding: 10px 15px;
     font-family: 'Ubuntu', Arial, sans-serif;
@@ -205,10 +223,18 @@ figcaption {
 <!-- Title -->
 <h1 id="title">The Agora Archive</h1>
 
-<!-- Controls: Button + Search -->
+<!-- Controls: Search + Filter tags (Mutual Aid and Friday Film) -->
 <div id="controls">
-  <button id="watchBtn">Mature Content 18+</button>
-  <input type="text" id="searchInput" placeholder="Discover Bitcoin Cash" />
+  <!-- Top row: search button + input -->
+  <div id="top-controls" style="display:flex; justify-content:center; gap:15px; width:100%; flex-wrap:wrap;">
+    <button id="watchBtn">Mature Content 18+</button>
+    <input type="text" id="searchInput" placeholder="Discover Bitcoin Cash" />
+  </div>
+  <!-- 2 small filter tags below search input -->
+  <div id="filterTags">
+    <button class="filter-tag" data-filter="Mutual Aid">Mutual Aid</button>
+    <button class="filter-tag" data-filter="Friday Film">Friday Film</button>
+  </div>
 </div>
 
 <!-- Figures grid -->
@@ -218,7 +244,7 @@ figcaption {
 <button id="refreshBtn" title="Refresh" onclick="shuffleFigures();">&#x21bb;</button>
 
 <script>
-  // Fully include all your figures here
+  // Full list of figures
   const figuresData = [
     { href: "https://gaze.cash/play?vid=AAAB9g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/robocop.jpg", alt: "Robocop 1987", caption: "Robocop 1987", subcaption: "Friday Film" },
     { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/steam.webp", alt: "Steam", caption: "Steam" },
@@ -305,13 +331,11 @@ figcaption {
   function shuffleFigures() {
     const grid = document.getElementById('figuresGrid');
     grid.innerHTML = '';
-    // Shuffle array
     const shuffled = [...figuresData];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    // Generate DOM elements from shuffled array
     shuffled.forEach(item => {
       const figure = document.createElement('figure');
       figure.innerHTML = `
@@ -321,6 +345,17 @@ figcaption {
         <figcaption>${item.caption}${item.subcaption ? `<p style="color: #c0c0c0;">${item.subcaption}</p>` : ''}</figcaption>
       `;
       grid.appendChild(figure);
+    });
+  }
+
+  function filterFigures(keyword) {
+    document.querySelectorAll("#figuresGrid figure").forEach(f => {
+      const captionText = f.querySelector("figcaption").textContent.toLowerCase();
+      if (captionText.includes(keyword.toLowerCase())) {
+        f.style.display = "";
+      } else {
+        f.style.display = "none";
+      }
     });
   }
 
@@ -336,12 +371,29 @@ figcaption {
       });
     });
 
-    // Watch button
+    // Small filter buttons for "Mutual Aid" and "Friday Film"
+    document.querySelectorAll('.filter-tag').forEach(btn => {
+      btn.onclick = () => {
+        filterFigures(btn.dataset.filter);
+      };
+    });
+
+    // These are the only filter buttons used
+    document.querySelectorAll('.filter-tag').forEach(btn => {
+      btn.onclick = () => {
+        filterFigures(btn.dataset.filter);
+      };
+    });
+
+    document.querySelectorAll('.filter-tag')[0].onclick = () => filterFigures("Mutual Aid");
+    document.querySelectorAll('.filter-tag')[1].onclick = () => filterFigures("Friday Film");
+
+    // "Mature Content" button
     document.getElementById("watchBtn").onclick = () => {
       window.open('https://gaze.cash/channel.html?chan=AAAAZw', '_blank');
     };
 
-    // Show content after images load
+    // Load images
     const imgs = document.querySelectorAll('#figuresGrid img');
     let loadedCount = 0;
     const totalImgs = imgs.length;
@@ -364,7 +416,6 @@ figcaption {
       if (loadedCount >= totalImgs) {
         document.getElementById('loader').style.display='none';
         document.getElementById('main-content').style.display='block';
-        // no need to shuffle here again, already done
       }
     }
   });
