@@ -55,7 +55,7 @@
     align-items: center;
   }
 
-  /* Dark mode toggle button */
+  /* Dark Mode Toggle Button */
   #darkModeToggle {
     position: fixed;
     top: 10px;
@@ -118,7 +118,7 @@
     }
   }
 
-  /* Controls: Search + Filter tags (Mutual Aid and Friday Film) */
+  /* Controls styles */
   #controls {
     display: flex;
     flex-direction: column;
@@ -128,7 +128,6 @@
     width: 100%;
   }
 
-  /* Top row: search button + input */
   #top-controls {
     display: flex;
     justify-content: center;
@@ -137,7 +136,6 @@
     width: 100%;
   }
 
-  /* Small filter tags for "All", "Mutual Aid" and "Friday Film" below search input */
   #filterTags {
     display: flex;
     flex-wrap: wrap;
@@ -146,7 +144,6 @@
     margin-top: 8px;
   }
 
-  /* Style for filter tags */
   .filter-tag {
     padding: 4px 8px;
     font-size: 0.75em;
@@ -162,7 +159,6 @@
     transform: scale(1.05);
   }
 
-  /* Style for the Mature Content Button to match the title's gradient */
   #watchBtn {
     padding: 12px 24px;
     border: none;
@@ -176,11 +172,10 @@
     transition: all 0.3s ease;
   }
   #watchBtn:hover {
-    box-shadow: 0 0 20px #66a6ff; /* match hover glow */
+    box-shadow: 0 0 20px #66a6ff;
     transform: scale(1.05);
   }
 
-  /* Search input style */
   #searchInput {
     padding: 10px 15px;
     font-family: 'Ubuntu', Arial, sans-serif;
@@ -223,19 +218,16 @@ figure img {
     height: 100px;
     object-fit: contain;
     border-radius: 8px;
-    background: #ecf0f1;
     padding: 4px;
     transition: transform 0.3s;
-  }
-figure:hover img {
-    transform: scale(1.05);
-  }
-figcaption {
-    margin-top: 8px;
-    font-size: 0.85em;
-    color: var(--caption-color);
-    text-align: center;
-  }
+    /* Remove background to prevent white behind images in dark mode */
+    /* background: #ecf0f1; */ 
+}
+
+/* Make caption text white when in dark mode for all figures */
+body.dark-mode figcaption {
+  color: #fff;
+}
 </style>
 </head>
 <body>
@@ -248,7 +240,7 @@ figcaption {
 
 <!-- Title -->
 <h1 id="title">Megaracash</h1>
-  
+
 <!-- Controls: Search + Filter tags (All, Mutual Aid, Friday Film) -->
 <div id="controls">
   <!-- Top row: search button + input -->
@@ -276,7 +268,7 @@ figcaption {
     btn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
   };
 
-  // Full list of figures
+    // Full list of figures
   const figuresData = [
     { href: "https://tapswap.cash/trade/97e035042c113731fe3e884e499b2d6ca94e4b4ff2f7f2ed44029a544ce0b9e2", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchmultipass.webp", alt: "BCH Multipass", caption: "BCH Multipass", subcaption: "Mutual Aid" },
     { href: "https://gaze.cash/play?vid=AAAB9g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/robocop.jpg", alt: "Robocop 1987", caption: "Robocop 1987", subcaption: "Friday Film" },
