@@ -272,7 +272,7 @@ body.dark-mode figcaption {
   color: #fff;
 }
 
-/* Iframe overlay styles */
+/* Iframe overlay styles - full screen */
 #iframeOverlay {
   display: none; /* Hidden by default */
   position: fixed;
@@ -283,15 +283,20 @@ body.dark-mode figcaption {
   align-items: center;
   z-index: 9998;
 }
+
+/* Container fills entire overlay for full-screen iframe */
 #iframeContainer {
   position: relative;
-  width: 90%;
-  max-width: 1000px;
-  height: 80%;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
   background: #fff;
-  border-radius: 8px;
+  border-radius: 0; /* Remove border radius for fullscreen */
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
+
+/* iframe fills container */
 #iframeContainer iframe {
   width: 100%;
   height: 100%;
@@ -354,9 +359,9 @@ body.dark-mode figcaption {
   </div>
 </div>
 
-<!-- Iframe overlay for CryptoRefills -->
+<!-- Iframe overlay for CryptoRefills (Full screen) -->
 <div id="iframeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9998;">
-  <div style="position:relative; width:90%; max-width:1000px; height:80%; background:#fff; border-radius:8px; overflow:hidden;">
+  <div id="iframeContainer">
     <button id="closeIframe" style="position:absolute; top:10px; right:15px; background:#f44336; color:#fff; border:none; border-radius:50%; width:30px; height:30px; font-size:20px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.3);">&times;</button>
     <iframe src="" id="refillsIframe"></iframe>
   </div>
@@ -404,7 +409,7 @@ body.dark-mode figcaption {
     { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/nintendo-eshop_300x190.webp", alt: "Nintendo eShop", caption: "Nintendo EShop" },
     { href: "https://cashtokenmarkets.bch-1.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "CashToken Markets", caption: "CashToken Markets" },
     { href: "https://minisatoshi.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "minisatoshi.cash", caption: "minisatoshi" },
-    { href: "https://sideshift.ai/a/uAVybRyzY", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/6ca949ac127c225ae5de5e04c520fa7ed1194768/bch%20agora/SideShift%20Logo%20Black.svg", alt: "SideShift.ai", caption: "SideShift.ai" },
+    { href: "https://sideshift.ai/a/uAVybRyzY", src: "https://raw.githubusercontent.com/megaracash/bchprojects/6ca949ac127c225ae5de5e04c520fa7ed1194768/bch%20agora/SideShift%20Logo%20Black.svg", alt: "SideShift.ai", caption: "SideShift.ai" },
     { href: "https://ariavpn.net/ref/0ONCc", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/153cddecdae606c151cb62dad9ef2a0f14cd559f/bch%20agora/aria.svg", alt: "AriaVPN", caption: "AriaVPN" },
     { href: "https://tokenexplorer.cash/?tokenId=80cf212abf3b910f097c2d94eeb04d8e929d4ae6e3ad9c7b1df6cfff35b8ed71", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/celq.png", alt: "CELQ", caption: "CELQ", subcaption: "Mutual Aid" },
     { href: "https://t.me/addstickers/bchhoroscopepack1", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchgangTG.webp", alt: "BCH Horoscope Sticker Pack", caption: "BCH Horoscope Sticker Pack" },
@@ -516,8 +521,6 @@ body.dark-mode figcaption {
     };
   });
 
-  // "Movie Night" button removed as per request
-
   // Gift Button Logic
   const giftBtn = document.getElementById("giftButton");
   const giftModal = document.getElementById("giftModal");
@@ -569,7 +572,5 @@ body.dark-mode figcaption {
   });
 </script>
 
-</body>
-</html>
 </body>
 </html>
