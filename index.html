@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
 <style>
   :root {
-    /* Light mode colors */
+    /* Light theme colors */
     --bg-color: #f0f4f8;
     --text-color: #333;
     --shadow-color: rgba(0,0,0,0.1);
@@ -21,11 +21,10 @@
     --caption-color: #606060;
     --subcaption-color: #c0c0c0;
     --title-gradient: linear-gradient(135deg, #89f7fe, #66a6ff);
-    --button-gradient: linear-gradient(135deg, #89f7fe, #66a6ff);
   }
 
   body.dark-mode {
-    /* Dark mode overrides */
+    /* Dark theme overrides */
     --bg-color: #121212;
     --text-color: #eee;
     --shadow-color: rgba(0,0,0,0.4);
@@ -35,17 +34,14 @@
     --figure-bg: #222;
     --figure-shadow: rgba(0,0,0,0.5);
     --caption-color: #aaa;
-    --subcaption-color: #888;
-    --title-gradient: linear-gradient(135deg, #444, #222);
-    --button-gradient: linear-gradient(135deg, #444, #222);
   }
 
-  /* Reset styles */
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
+
   body {
     font-family: 'Ubuntu', Arial, sans-serif;
     background: var(--bg-color);
@@ -54,14 +50,20 @@
     flex-direction: column;
   }
 
-  /* Header with title and top right buttons */
+  /* Sticky header styling */
   #header {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
+    background-color: var(--bg-color);
+    padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    gap: 10px;
+    z-index: 9999;
+    box-shadow: 0 2px 4px var(--shadow-color);
   }
 
   #title {
@@ -74,29 +76,23 @@
     letter-spacing: 2px;
     text-shadow: 0 4px 6px var(--shadow-color);
     animation: glow 2s infinite alternate ease-in-out;
-    width: 100%;
+    flex: 1 1 auto;
+    min-width: 200px;
     text-align: center;
   }
 
   @keyframes glow {
-    0% {
-      text-shadow: 0 4px 6px var(--shadow-color);
-    }
-    100% {
-      text-shadow: 0 8px 12px var(--hover-shadow-color);
-    }
+    0% { text-shadow: 0 4px 6px var(--shadow-color); }
+    100% { text-shadow: 0 8px 12px var(--hover-shadow-color); }
   }
 
-  /* Buttons container at top right */
-  #top-right-buttons {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  /* Top right buttons container */
+  #top-buttons {
     display: flex;
     gap: 10px;
   }
 
-  /* Light/Dark Mode Toggle Button */
+  /* Dark Mode toggle button */
   #darkModeToggle {
     padding: 8px 12px;
     border: none;
@@ -107,14 +103,14 @@
     font-family: 'Ubuntu', Arial, sans-serif;
     font-size: 0.9em;
     box-shadow: 0 2px 4px var(--shadow-color);
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, transform 0.2s;
   }
   #darkModeToggle:hover {
     background: var(--filter-tag-hover);
     transform: scale(1.05);
   }
 
-  /* Gift Button styles */
+  /* Gift button styling */
   #giftButton {
     padding: 8px 12px;
     border: none;
@@ -132,42 +128,38 @@
     transform: scale(1.05);
   }
 
-  /* Main content styles */
-  #main-content {
+  /* Search container */
+  #search-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-
-  /* Controls styles */
-  #controls {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 10px;
     width: 100%;
-    max-width: 1600px;
-    margin-bottom: 20px;
+    max-width: 600px;
+    margin-top: 10px;
   }
-
-  #top-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+  #search-input {
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
     width: 100%;
+    font-family: 'Ubuntu', Arial, sans-serif;
+    font-size: 14px;
+    outline: none;
+  }
+  #search-input:focus {
+    box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
+    border-color: #0AC18E;
   }
 
-  #filterTags {
+  /* Tags styles */
+  #tags {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
     margin-top: 8px;
   }
-
-  .filter-tag {
+  .tag {
     padding: 4px 8px;
     font-size: 0.75em;
     border: none;
@@ -177,24 +169,9 @@
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
   }
-  .filter-tag:hover {
+  .tag:hover {
     background: var(--filter-tag-hover);
     transform: scale(1.05);
-  }
-
-  #searchInput {
-    padding: 10px 15px;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 14px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    min-width: 220px;
-    outline: none;
-    transition: box-shadow 0.3s, border-color 0.3s;
-  }
-  #searchInput:focus {
-    box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
-    border-color: #0AC18E;
   }
 
   /* Figures grid styles */
@@ -202,7 +179,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
-    width: 100%;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
   }
 
 figure {
@@ -225,36 +204,55 @@ figure img {
     object-fit: contain;
     border-radius: 8px;
     padding: 4px;
-    transition: transform 0.3s;
   }
-
-body.dark-mode figcaption {
-  color: #fff;
+figcaption {
+    margin-top: 8px;
+    font-size: 0.75em;
+    color: var(--caption-color);
 }
 
-/* Gift modal styles */
+/* --- Modal styles --- */
+
+/* Default (light mode) overlay */
 #giftModal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  transition: background 0.3s;
 }
-#giftModalContent {
+
+/* Dark mode overlay */
+#giftModal.dark-mode {
+  background: rgba(18, 18, 18, 0.8);
+}
+
+/* Modal content box (default light) */
+#giftModal > div {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   max-width: 400px;
   width: 90%;
   text-align: center;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: background 0.3s, color 0.3s;
 }
-#giftModalContent h3 {
-  margin-bottom: 20px;
+
+/* Dark mode modal content */
+#giftModal.dark-mode > div {
+  background: #222;
+  color: #eee;
 }
-#giftModalContent button {
+
+/* Buttons inside modal to match theme */
+#giftModal > div button {
   margin: 10px 0;
   padding: 10px 20px;
   border: none;
@@ -262,315 +260,233 @@ body.dark-mode figcaption {
   cursor: pointer;
   font-family: 'Ubuntu', Arial, sans-serif;
   font-size: 14px;
-  transition: all 0.2s;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
-#giftModalContent button:hover {
-  opacity: 0.9;
+#giftModal > div button:hover {
+  box-shadow: 0 0 20px #66a6ff;
 }
-#closeGiftModal {
-  background: #f44336;
-  color: #fff;
-}
-
-/* Iframe overlay styles - full screen */
-#iframeOverlay {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 9998;
-}
-
-/* Container fills entire overlay for full-screen iframe */
-#iframeContainer {
-  position: relative;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background: #fff;
-  border-radius: 0; /* Remove border radius for fullscreen */
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-/* iframe fills container */
-#iframeContainer iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-#closeIframe {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: #f44336;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+#giftModal.dark-mode > div button {
+  background: #444;
+  color: #eee;
 }
 </style>
 </head>
 <body>
 
-<!-- Header with title and top right buttons -->
-<div id="header" style="position:relative; width:100%; display:flex; justify-content:center; align-items:center; padding:20px;">
+<!-- Sticky header container -->
+<header id="header">
   <h1 id="title">𝕸𝖊𝖌𝖆𝖗𝖆𝖈𝖆𝖘𝖍</h1>
-  <!-- Buttons container at top right -->
-  <div id="top-right-buttons" style="position:absolute; top:20px; right:20px; display:flex; gap:10px;">
+  <div id="top-buttons">
     <button id="darkModeToggle">Dark Mode</button>
     <button id="giftButton">Gift</button>
   </div>
-</div>
+  <div id="search-container" style="width:100%; max-width:600px; margin-top:10px;">
+    <input type="search" id="search-input" placeholder="Discover Bitcoin Cash" />
+  </div>
+  <div id="tags">
+    <button class="tag" data-filter="All">All</button>
+    <button class="tag" data-filter="Mutual Aid">Mutual Aid</button>
+    <button class="tag" data-filter="Friday Film">Friday Film</button>
+  </div>
+</header>
 
 <!-- Main content -->
-<div id="main-content">
-  <!-- Controls -->
-  <div id="controls" style="display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; max-width:1600px; margin-bottom:20px;">
-    <!-- Only search input -->
-    <div id="top-controls" style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap; width:100%;">
-      <input type="text" id="searchInput" placeholder="Discover Bitcoin Cash" style="padding:10px 15px; font-family:'Ubuntu',Arial,sans-serif; font-size:14px; border-radius:12px; border:1px solid #ccc; min-width:220px; outline:none; transition:box-shadow 0.3s, border-color 0.3s;" />
-    </div>
-    <!-- Filter tags -->
-    <div id="filterTags" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:8px;">
-      <button class="filter-tag" data-filter="All" style="padding:4px 8px; font-size:0.75em; border:none; border-radius:6px; background:var(--filter-tag-bg); box-shadow:0 1px 3px rgba(0,0,0,0.1); cursor:pointer; transition:background 0.2s, transform 0.2s;">All</button>
-      <button class="filter-tag" data-filter="Mutual Aid" style="padding:4px 8px; font-size:0.75em; border:none; border-radius:6px; background:var(--filter-tag-bg); box-shadow:0 1px 3px rgba(0,0,0,0.1); cursor:pointer; transition:background 0.2s, transform 0.2s;">Mutual Aid</button>
-      <button class="filter-tag" data-filter="Friday Film" style="padding:4px 8px; font-size:0.75em; border:none; border-radius:6px; background:var(--filter-tag-bg); box-shadow:0 1px 3px rgba(0,0,0,0.1); cursor:pointer; transition:background 0.2s, transform 0.2s;">Friday Film</button>
-    </div>
-  </div>
-  <!-- Figures grid -->
-  <div id="figuresGrid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; width:100%;"></div>
+<div id="main">
+  <div id="figuresGrid"></div>
 </div>
 
 <!-- Gift Modal -->
-<div id="giftModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
-  <div style="background:#fff; padding:20px; border-radius:10px; max-width:400px; width:90%; text-align:center;">
-    <h3 style="margin-bottom:20px;">Select how to visit CryptoRefills</h3>
-    <button id="openExternal" style="margin:10px; padding:10px 20px; border:none; background:#4CAF50; color:#fff; border-radius:6px; cursor:pointer;">Open in New Tab</button><br/>
-    <button id="openIframe" style="margin:10px; padding:10px 20px; border:none; background:#2196F3; color:#fff; border-radius:6px; cursor:pointer;">View in Iframe</button><br/>
-    <button id="closeGiftModal" style="margin:10px; padding:8px 16px; border:none; background:#f44336; color:#fff; border-radius:6px; cursor:pointer;">Cancel</button>
+<div id="giftModal" style="display:none;">
+  <div>
+    <h3>Choose how to visit CryptoRefills</h3>
+    <button id="openExternal" style="margin:10px; padding:10px 20px; background:#4CAF50; color:#fff;">Open in New Tab</button><br/><br/>
+    <button id="openIframe" style="margin:10px; padding:10px 20px; background:#2196F3; color:#fff;">View in Iframe</button><br/><br/>
+    <button id="closeGift" style="margin:10px; padding:8px 16px; background:#f44336; color:#fff;">Cancel</button>
   </div>
 </div>
 
-<!-- Iframe overlay for CryptoRefills (Full screen) -->
+<!-- Fullscreen iframe overlay -->
 <div id="iframeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9998;">
-  <div id="iframeContainer">
-    <button id="closeIframe" style="position:absolute; top:10px; right:15px; background:#f44336; color:#fff; border:none; border-radius:50%; width:30px; height:30px; font-size:20px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.3);">&times;</button>
-    <iframe src="" id="refillsIframe"></iframe>
+  <div style="position:relative; width:100%; height:100%; background:#fff; border-radius:0;">
+    <button id="closeIframe" style="position:absolute; top:10px; right:15px; width:30px; height:30px; background:#f44336; color:#fff; border:none; border-radius:50%; font-size:20px; cursor:pointer;">&times;</button>
+    <iframe src="" id="refillsIframe" style="width:100%; height:100%; border:none;"></iframe>
   </div>
 </div>
 
-<!-- Scripts -->
+<!-- Figures data array -->
 <script>
-  // Toggle dark mode
-  document.getElementById('darkModeToggle')?.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.getElementById('darkModeToggle').textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+const figures = [
+  { href: "https://fiatleak.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/fiatleak.svg", alt: "fiatleak", caption: "fiatleak" },
+  { href: "https://gaze.cash/play?vid=AAAB_g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/shrek.webp", alt: "Shrek", caption: "Shrek", subcaption: "Friday Film" },
+  { href: "https://tapswap.cash/trade/00a49d45bb8b6361fc854e23b689efbe853cf009aa1b190466824c10ca357ab2", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/sweet.webp", alt: "Sweet Rejex", caption: "Sweet Rejex", subcaption: "Mutual Aid" },
+  { href: "https://www.cauldron.quest/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cauldron.png", alt: "Cauldron DEX", caption: "Cauldron DEX" },
+  { href: "https://gaze.cash/play?vid=AAAB_Q", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/hercules.jpeg", alt: "Hercules", caption: "Hercules", subcaption: "Friday Film" },
+  { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/elephants.jpeg", alt: "Global Sanctuary for Elephants", caption: "Global Sanctuary for Elephants", subcaption: "Mutual Aid Φ" },
+  { href: "https://gaze.cash/play?vid=AAAB-w", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/fifthelement.jpg", alt: "The Fifth Element", caption: "The Fifth Element", subcaption: "Friday Film" },
+  { href: "https://tapswap.cash/trade/97e035042c113731fe3e884e499b2d6ca94e4b4ff2f7f2ed44029a544ce0b9e2", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchmultipass.webp", alt: "BCH Multipass", caption: "BCH Multipass", subcaption: "Mutual Aid" },
+  { href: "https://gaze.cash/play?vid=AAAB9g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/robocop.jpg", alt: "Robocop 1987", caption: "Robocop 1987", subcaption: "Friday Film" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/steam.webp", alt: "Steam", caption: "Steam" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/walmart.webp", alt: "Walmart", caption: "Walmart" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/uberrides.webp", alt: "Uber Rides", caption: "Uber Rides" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/paypal.webp", alt: "PayPal", caption: "Rewardable PayPal" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/homedepot.webp", alt: "Home Depot", caption: "Home Depot" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/ubereats.webp", alt: "Uber Eats", caption: "Uber Eats" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/airbnb.webp", alt: "Airbnb", caption: "Airbnb" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/apple.webp", alt: "Everything Apple", caption: "Everything Apple" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/googleplay.png", alt: "Google Play", caption: "Google Play" },
+  { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/amazon.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/amazon.png", alt: "Amazon", caption: "Amazon" },
+  { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/playstation.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/playstation.png", alt: "PlayStation", caption: "PlayStation" },
+  { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/xbox.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/xbox.png", alt: "XBOX", caption: "XBOX" },
+  { href: "https://tokenexplorer.cash/?tokenId=d9ab24ed15a7846cc3d9e004aa5cb976860f13dac1ead05784ee4f4622af96ea", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/furu.png", alt: "FURU", caption: "FURU" },
+  { href: "https://t.me/addstickers/bitcoincashfriends", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchbudsTG.webp", alt: "BCH Buds Sticker Pack", caption: "BCH Buds Sticker Pack" },
+  { href: "https://t.me/addstickers/bchven", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchvenezuelaTG.webp", alt: "BCH Venezuela Sticker Pack", caption: "BCH Venezuela Sticker Pack" },
+  { href: "https://t.me/addstickers/bchhoroscopepack1", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchgangTG.webp", alt: "BCH Gang Sticker Pack", caption: "BCH Gang Sticker Pack" },
+  { href: "https://www.moria.money/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/2c1305cf83b430fa35ff0658898660f46504171b/bch%20agora/moria.svg", alt: "Moria USD", caption: "Moria USD" },
+  { href: "https://paryonusd.com/app", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/parityUSD.png", alt: "ParityUSD", caption: "ParityUSD" },
+  { href: "https://bch.games/play/1ZeBUACP2Avs", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0492d54821978ef2448fd722721e1e57ab60fe06/bch%20agora/BCHgames.svg", alt: "BCH.games", caption: "BCH.games" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/public-mobile_300x190.webp", alt: "Public Mobile", caption: "Public Mobile" },
+  { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/nintendo-eshop_300x190.webp", alt: "Nintendo eShop", caption: "Nintendo EShop" },
+  { href: "https://cashtokenmarkets.bch-1.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "CashToken Markets", caption: "CashToken Markets" },
+  { href: "https://minisatoshi.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "minisatoshi.cash", caption: "minisatoshi" },
+  { href: "https://sideshift.ai/a/uAVybRyzY", src: "https://raw.githubusercontent.com/megaracash/bchprojects/6ca949ac127c225ae5de5e04c520fa7ed1194768/bch%20agora/SideShift%20Logo%20Black.svg", alt: "SideShift.ai", caption: "SideShift.ai" },
+  { href: "https://ariavpn.net/ref/0ONCc", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/153cddecdae606c151cb62dad9ef2a0f14cd559f/bch%20agora/aria.svg", alt: "AriaVPN", caption: "AriaVPN" },
+  { href: "https://tokenexplorer.cash/?tokenId=80cf212abf3b910f097c2d94eeb04d8e929d4ae6e3ad9c7b1df6cfff35b8ed71", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/celq.png", alt: "CELQ", caption: "CELQ", subcaption: "Mutual Aid" },
+  { href: "https://t.me/addstickers/bchhoroscopepack1", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchgangTG.webp", alt: "BCH Horoscope Sticker Pack", caption: "BCH Horoscope Sticker Pack" },
+  { href: "https://bmap.app/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bmap.png", alt: "BMap | Merchant Map", caption: "BMap | Merchant Map" },
+  { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchguru.png", alt: "BCH Guru", caption: "BCH Guru", subcaption: "Mutual Aid Φ" },
+  { href: "https://tokenexplorer.cash/?tokenId=791d3047a42ec2d15f02edfa78ce41cc4c7933b65cfa9391599b8c8714e82d02", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchbooties.webp", alt: "BCH Booties", caption: "BCH Booties", subcaption: "Mutual Aid" },
+  { href: "https://eatbch.org/", src: "https://eatbch.org/_assets/svg/logo.svg?1.0.0", alt: "eatBCH", caption: "eatBCH" },
+  { href: "https://tbch.googol.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/testnetfaucet.webp", alt: "BCH Testnet Faucet", caption: "BCH Testnet Faucet" },
+  { href: "https://explorer.bitcoinunlimited.info/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "BU Explorer", caption: "BU Explorer" },
+  { href: "https://cashflow.dev/graph", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Cashflow", caption: "Cashflow" },
+  { href: "https://explorer.melroy.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/melroy.webp", alt: "Melroy Explorer", caption: "Melroy Explorer" },
+  { href: "https://3xpl.com/bitcoin-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/3xpl.svg", alt: "3xpl Explorer", caption: "3xpl Explorer" },
+  { href: "https://www.blockchain.com/explorer/assets/bch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/blockchaincom.svg", alt: "Blockchain.com", caption: "Blockchain .com Explorer" },
+  { href: "https://simpleledger.info/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "SLP Token Explorer", caption: "SLP Token Explorer" },
+  { href: "https://blockchair.com/bitcoin-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/blockchair.svg", alt: "Blockchair", caption: "Blockchair Explorer" },
+  { href: "https://tokenexplorer.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "BCMR Token Explorer", caption: "BCMR Token Explorer" },
+  { href: "https://explorer.salemkode.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Salem Kode Explorer", caption: "Salem Kode Explorer" },
+  { href: "https://developers.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Developers.Cash", caption: "Developers.Cash" },
+  { href: "https://1209k.com/bitcoin-eye/ele.php?chain=bch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/1209k.webp", alt: "Electrum Server Status", caption: "Electrum Server Status" },
+  { href: "https://monsterbitar.se/~jonathan/energy", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/energy.svg", alt: "Bitcoin Energy Stats", caption: "Bitcoin Energy Stats" },
+  { href: "https://cash.coin.dance/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/coindance.webp", alt: "Coin Dance", caption: "Coin Dance" },
+  { href: "https://mempool.jhoenicke.de/#BCH,24h,weight", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/johoe.svg", alt: "Johoe`s Bitcoin Mempool Stats", caption: "Johoe`s Bitcoin Mempool Stats" },
+  { href: "https://bitcoinfees.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoinfees.png", alt: "Bitcoin Fees", caption: "Bitcoin Fees" },
+  { href: "https://fork.lol/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/forklol.png", alt: "Fork.lol", caption: "Fork.lol" },
+  { href: "https://bitinfocharts.com/bitcoin%20cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/opreturnscanner.svg", alt: "BitInfoCharts", caption: "BitInfoCharts" },
+  { href: "https://txcity.io/v/bch-btc", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/txcity.svg", alt: "TxCity.io", caption: "TxCity.io" },
+  { href: "https://buyhodlsell.com/tx-watch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bhs.svg", alt: "BuyHodlSell", caption: "Buy Hodl Sell" },
+  { href: "https://github.com/cculianu/asicseer-pool", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/ASICseer.png", alt: "ASICseer", caption: "ASICseer Pool" },
+  { href: "https://afifthofgaming.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/afog.webp", alt: "A Fifth of Gaming", caption: "A Fifth of Gaming" },
+  { href: "https://bitbucket.org/o-studio/spedn/src/develop/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/speedn.svg", alt: "Speedn", caption: "SPEEDN" },
+  { href: "https://gitlab.com/electrum-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/electrum-cash.svg", alt: "Electrum-Cash", caption: "Electrum-Cash" },
+  { href: "https://gitlab.com/riftenlabs/moria/oracle-contract", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/d3lphi-oracle.webp", alt: "d3lphi-oracle", caption: "d3lphi-oracle" },
+  { href: "https://purelypeer.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/PurelyPeer.svg", alt: "PurelyPeer", caption: "PurelyPeer" },
+  { href: "https://oracles.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/oracles-light.svg", alt: "Oracles.Cash", caption: "Oracles.Cash" },
+  { href: "https://www.bitpay.com/directory/nonprofits", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitpay.svg", alt: "Bitpay Charity", caption: "Bitpay Charity Directory" },
+  { href: "https://jogs.one/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/heads/main/bch%20agora/JOGS.webp", alt: "The Journal of Global Surgery", caption: "The Journal of Global Surgery" },
+  { href: "https://csc.org/donors/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/childrenssurgicalcentre.webp", alt: "Children's Surgical Centre", caption: "Children's Surgical Centre" },
+  { href: "https://bcashgpt.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/nanogpt.svg", alt: "BCashGPT", caption: "BCashGPT" },
+  { href: "https://haveibeenpwned.com/Donate", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/pwned.png", alt: "haveibeenpwned", caption: "haveibeenpwned" },
+  { href: "https://github.com/jprupp/haskoin-core", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Core", caption: "Haskoin Core" },
+  { href: "https://github.com/jprupp/haskoin-core", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Store", caption: "Haskoin Store" },
+  { href: "https://github.com/jprupp/haskoin-node", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Node", caption: "Haskoin Node" },
+  { href: "https://github.com/gcash/bchutil", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "bchutil", caption: "bchutil" },
+  { href: "https://developers-cash.github.io/cash-pay-server-js/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cashpayserver.svg", alt: "CashPayServer", caption: "CashPayServer" },
+  { href: "https://mainnet.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/mainnet.png", alt: "mainnet", caption: "mainnet" },
+  { href: "https://github.com/mainnet-pat/wc2-bch-bcr", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/walletconect.svg", alt: "WalletConnect v2", caption: "Wallet Connect v2" },
+  { href: "https://otr.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/OTR.png", alt: "Open Token Registry", caption: "Open Token Registry" },
+  { href: "https://github.com/mainnet-pat/wc2-bch-bcr", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashID.png", alt: "CashID", caption: "CashID" },
+  { href: "https://gitlab.com/developers.cash/cashconnect-temp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cashconnect.svg", alt: "Cash Connect", caption: "Cash Connect" },
+  { href: "https://github.com/simpleledger/slpjs", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "SLPJS", caption: "SLPJS" },
+  { href: "https://pybitcash.github.io/bitcash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcash.svg", alt: "BitCash", caption: "BitCash" },
+  { href: "https://cashtokens.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashTokens.svg", alt: "CashTokens", caption: "CashTokens" },
+  { href: "https://simpleledger.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "Simple Ledger Protocol", caption: "Simple Ledger Protocol" },
+  { href: "https://mazetoken.github.io/airdrop-tool", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashTokens.svg", alt: "Airdrop Tool", caption: "Airdrop Tool" },
+  { href: "https://opreturn-scanner.netlify.app/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/opreturnscanner.svg", alt: "OP_RETURN Scanner", caption: "OP_RETURN Scanner" }
+];
+
+function populateFigures() {
+  const container = document.getElementById('figuresGrid');
+  container.innerHTML = '';
+  figures.forEach(item => {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `
+      <a href="${item.href}" target="_blank" rel="noopener noreferrer">
+        <img src="${item.src}" alt="${item.alt}">
+      </a>
+      <figcaption>${item.caption}${item.subcaption ? `<p style="color: #c0c0c0;">${item.subcaption}</p>` : ''}</figcaption>
+    `;
+    container.appendChild(fig);
   });
+}
 
-  // Full list of figures
-  const figuresData = [
-    { href: "https://fiatleak.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/fiatleak.svg", alt: "fiatleak", caption: "fiatleak" },
-    { href: "https://gaze.cash/play?vid=AAAB_g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/shrek.webp", alt: "Shrek", caption: "Shrek", subcaption: "Friday Film" },
-    { href: "https://tapswap.cash/trade/00a49d45bb8b6361fc854e23b689efbe853cf009aa1b190466824c10ca357ab2", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/sweet.webp", alt: "Sweet Rejex", caption: "Sweet Rejex", subcaption: "Mutual Aid" },
-    { href: "https://www.cauldron.quest/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cauldron.png", alt: "Cauldron DEX", caption: "Cauldron DEX" },
-    { href: "https://gaze.cash/play?vid=AAAB_Q", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/hercules.jpeg", alt: "Hercules", caption: "Hercules", subcaption: "Friday Film" },
-    { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/elephants.jpeg", alt: "Global Sanctuary for Elephants", caption: "Global Sanctuary for Elephants", subcaption: "Mutual Aid Φ" },
-    { href: "https://gaze.cash/play?vid=AAAB-w", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/fifthelement.jpg", alt: "The Fifth Element", caption: "The Fifth Element", subcaption: "Friday Film" },
-    { href: "https://tapswap.cash/trade/97e035042c113731fe3e884e499b2d6ca94e4b4ff2f7f2ed44029a544ce0b9e2", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchmultipass.webp", alt: "BCH Multipass", caption: "BCH Multipass", subcaption: "Mutual Aid" },
-    { href: "https://gaze.cash/play?vid=AAAB9g", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/robocop.jpg", alt: "Robocop 1987", caption: "Robocop 1987", subcaption: "Friday Film" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/steam.webp", alt: "Steam", caption: "Steam" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/walmart.webp", alt: "Walmart", caption: "Walmart" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/uberrides.webp", alt: "Uber Rides", caption: "Uber Rides" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/paypal.webp", alt: "PayPal", caption: "Rewardable PayPal" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/homedepot.webp", alt: "Home Depot", caption: "Home Depot" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/ubereats.webp", alt: "Uber Eats", caption: "Uber Eats" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/airbnb.webp", alt: "Airbnb", caption: "Airbnb" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/apple.webp", alt: "Everything Apple", caption: "Everything Apple" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/googleplay.png", alt: "Google Play", caption: "Google Play" },
-    { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/amazon.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/amazon.png", alt: "Amazon", caption: "Amazon" },
-    { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/playstation.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/playstation.png", alt: "PlayStation", caption: "PlayStation" },
-    { href: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/xbox.png", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/xbox.png", alt: "XBOX", caption: "XBOX" },
-    { href: "https://tokenexplorer.cash/?tokenId=d9ab24ed15a7846cc3d9e004aa5cb976860f13dac1ead05784ee4f4622af96ea", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/furu.png", alt: "FURU", caption: "FURU" },
-    { href: "https://t.me/addstickers/bitcoincashfriends", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchbudsTG.webp", alt: "BCH Buds Sticker Pack", caption: "BCH Buds Sticker Pack" },
-    { href: "https://t.me/addstickers/bchven", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchvenezuelaTG.webp", alt: "BCH Venezuela Sticker Pack", caption: "BCH Venezuela Sticker Pack" },
-    { href: "https://t.me/addstickers/bchhoroscopepack1", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchgangTG.webp", alt: "BCH Gang Sticker Pack", caption: "BCH Gang Sticker Pack" },
-    { href: "https://www.moria.money/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/2c1305cf83b430fa35ff0658898660f46504171b/bch%20agora/moria.svg", alt: "Moria USD", caption: "Moria USD" },
-    { href: "https://paryonusd.com/app", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/parityUSD.png", alt: "ParityUSD", caption: "ParityUSD" },
-    { href: "https://bch.games/play/1ZeBUACP2Avs", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0492d54821978ef2448fd722721e1e57ab60fe06/bch%20agora/BCHgames.svg", alt: "BCH.games", caption: "BCH.games" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/public-mobile_300x190.webp", alt: "Public Mobile", caption: "Public Mobile" },
-    { href: "https://www.cryptorefills.com/?ref=L4JVzCcsxp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/nintendo-eshop_300x190.webp", alt: "Nintendo eShop", caption: "Nintendo EShop" },
-    { href: "https://cashtokenmarkets.bch-1.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "CashToken Markets", caption: "CashToken Markets" },
-    { href: "https://minisatoshi.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/0e86aa070b75b30555380ffc90ca9cfd60c7ddf7/bch%20agora/favicon.svg", alt: "minisatoshi.cash", caption: "minisatoshi" },
-    { href: "https://sideshift.ai/a/uAVybRyzY", src: "https://raw.githubusercontent.com/megaracash/bchprojects/6ca949ac127c225ae5de5e04c520fa7ed1194768/bch%20agora/SideShift%20Logo%20Black.svg", alt: "SideShift.ai", caption: "SideShift.ai" },
-    { href: "https://ariavpn.net/ref/0ONCc", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/153cddecdae606c151cb62dad9ef2a0f14cd559f/bch%20agora/aria.svg", alt: "AriaVPN", caption: "AriaVPN" },
-    { href: "https://tokenexplorer.cash/?tokenId=80cf212abf3b910f097c2d94eeb04d8e929d4ae6e3ad9c7b1df6cfff35b8ed71", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/celq.png", alt: "CELQ", caption: "CELQ", subcaption: "Mutual Aid" },
-    { href: "https://t.me/addstickers/bchhoroscopepack1", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bchgangTG.webp", alt: "BCH Horoscope Sticker Pack", caption: "BCH Horoscope Sticker Pack" },
-    { href: "https://bmap.app/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bmap.png", alt: "BMap | Merchant Map", caption: "BMap | Merchant Map" },
-    { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchguru.png", alt: "BCH Guru", caption: "BCH Guru", subcaption: "Mutual Aid Φ" },
-    { href: "https://tokenexplorer.cash/?tokenId=791d3047a42ec2d15f02edfa78ce41cc4c7933b65cfa9391599b8c8714e82d02", src: "https://raw.githubusercontent.com/megaracash/bchprojects/refs/heads/main/bch%20agora/bchbooties.webp", alt: "BCH Booties", caption: "BCH Booties", subcaption: "Mutual Aid" },
-    { href: "https://eatbch.org/", src: "https://eatbch.org/_assets/svg/logo.svg?1.0.0", alt: "eatBCH", caption: "eatBCH" },
-    { href: "https://tbch.googol.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/testnetfaucet.webp", alt: "BCH Testnet Faucet", caption: "BCH Testnet Faucet" },
-    { href: "https://explorer.bitcoinunlimited.info/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "BU Explorer", caption: "BU Explorer" },
-    { href: "https://cashflow.dev/graph", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Cashflow", caption: "Cashflow" },
-    { href: "https://explorer.melroy.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/melroy.webp", alt: "Melroy Explorer", caption: "Melroy Explorer" },
-    { href: "https://3xpl.com/bitcoin-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/3xpl.svg", alt: "3xpl Explorer", caption: "3xpl Explorer" },
-    { href: "https://www.blockchain.com/explorer/assets/bch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/blockchaincom.svg", alt: "Blockchain.com", caption: "Blockchain .com Explorer" },
-    { href: "https://simpleledger.info/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "SLP Token Explorer", caption: "SLP Token Explorer" },
-    { href: "https://blockchair.com/bitcoin-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/blockchair.svg", alt: "Blockchair", caption: "Blockchair Explorer" },
-    { href: "https://tokenexplorer.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "BCMR Token Explorer", caption: "BCMR Token Explorer" },
-    { href: "https://explorer.salemkode.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Salem Kode Explorer", caption: "Salem Kode Explorer" },
-    { href: "https://developers.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "Developers.Cash", caption: "Developers.Cash" },
-    { href: "https://1209k.com/bitcoin-eye/ele.php?chain=bch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/1209k.webp", alt: "Electrum Server Status", caption: "Electrum Server Status" },
-    { href: "https://monsterbitar.se/~jonathan/energy", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/energy.svg", alt: "Bitcoin Energy Stats", caption: "Bitcoin Energy Stats" },
-    { href: "https://cash.coin.dance/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/coindance.webp", alt: "Coin Dance", caption: "Coin Dance" },
-    { href: "https://mempool.jhoenicke.de/#BCH,24h,weight", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/johoe.svg", alt: "Johoe`s Bitcoin Mempool Stats", caption: "Johoe`s Bitcoin Mempool Stats" },
-    { href: "https://bitcoinfees.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoinfees.png", alt: "Bitcoin Fees", caption: "Bitcoin Fees" },
-    { href: "https://fork.lol/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/forklol.png", alt: "Fork.lol", caption: "Fork.lol" },
-    { href: "https://bitinfocharts.com/bitcoin%20cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/opreturnscanner.svg", alt: "BitInfoCharts", caption: "BitInfoCharts" },
-    { href: "https://txcity.io/v/bch-btc", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/txcity.svg", alt: "TxCity.io", caption: "TxCity.io" },
-    { href: "https://buyhodlsell.com/tx-watch", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bhs.svg", alt: "BuyHodlSell", caption: "Buy Hodl Sell" },
-    { href: "https://github.com/cculianu/asicseer-pool", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/ASICseer.png", alt: "ASICseer", caption: "ASICseer Pool" },
-    { href: "https://afifthofgaming.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/afog.webp", alt: "A Fifth of Gaming", caption: "A Fifth of Gaming" },
-    { href: "https://bitbucket.org/o-studio/spedn/src/develop/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/speedn.svg", alt: "Speedn", caption: "SPEEDN" },
-    { href: "https://gitlab.com/electrum-cash", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/electrum-cash.svg", alt: "Electrum-Cash", caption: "Electrum-Cash" },
-    { href: "https://gitlab.com/riftenlabs/moria/oracle-contract", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/d3lphi-oracle.webp", alt: "d3lphi-oracle", caption: "d3lphi-oracle" },
-    { href: "https://purelypeer.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/PurelyPeer.svg", alt: "PurelyPeer", caption: "PurelyPeer" },
-    { href: "https://oracles.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/oracles-light.svg", alt: "Oracles.Cash", caption: "Oracles.Cash" },
-    { href: "https://www.bitpay.com/directory/nonprofits", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitpay.svg", alt: "Bitpay Charity", caption: "Bitpay Charity Directory" },
-    { href: "https://jogs.one/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/heads/main/bch%20agora/JOGS.webp", alt: "The Journal of Global Surgery", caption: "The Journal of Global Surgery" },
-    { href: "https://csc.org/donors/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/childrenssurgicalcentre.webp", alt: "Children's Surgical Centre", caption: "Children's Surgical Centre" },
-    { href: "https://bcashgpt.com/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/nanogpt.svg", alt: "BCashGPT", caption: "BCashGPT" },
-    { href: "https://haveibeenpwned.com/Donate", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/pwned.png", alt: "haveibeenpwned", caption: "haveibeenpwned" },
-    { href: "https://github.com/jprupp/haskoin-core", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Core", caption: "Haskoin Core" },
-    { href: "https://github.com/jprupp/haskoin-core", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Store", caption: "Haskoin Store" },
-    { href: "https://github.com/jprupp/haskoin-node", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/haskoin.png", alt: "Haskoin Node", caption: "Haskoin Node" },
-    { href: "https://github.com/gcash/bchutil", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcoincash.svg", alt: "bchutil", caption: "bchutil" },
-    { href: "https://developers-cash.github.io/cash-pay-server-js/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cashpayserver.svg", alt: "CashPayServer", caption: "CashPayServer" },
-    { href: "https://mainnet.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/mainnet.png", alt: "mainnet", caption: "mainnet" },
-    { href: "https://github.com/mainnet-pat/wc2-bch-bcr", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/walletconect.svg", alt: "WalletConnect v2", caption: "Wallet Connect v2" },
-    { href: "https://otr.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/OTR.png", alt: "Open Token Registry", caption: "Open Token Registry" },
-    { href: "https://github.com/mainnet-pat/wc2-bch-bcr", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashID.png", alt: "CashID", caption: "CashID" },
-    { href: "https://gitlab.com/developers.cash/cashconnect-temp", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/cashconnect.svg", alt: "Cash Connect", caption: "Cash Connect" },
-    { href: "https://github.com/simpleledger/slpjs", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "SLPJS", caption: "SLPJS" },
-    { href: "https://pybitcash.github.io/bitcash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/bitcash.svg", alt: "BitCash", caption: "BitCash" },
-    { href: "https://cashtokens.org/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashTokens.svg", alt: "CashTokens", caption: "CashTokens" },
-    { href: "https://simpleledger.cash/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/slp.svg", alt: "Simple Ledger Protocol", caption: "Simple Ledger Protocol" },
-    { href: "https://mazetoken.github.io/airdrop-tool", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/CashTokens.svg", alt: "Airdrop Tool", caption: "Airdrop Tool" },
-    { href: "https://opreturn-scanner.netlify.app/", src: "https://raw.githubusercontent.com/jessreplica/bchprojects/refs/heads/main/bch%20agora/opreturnscanner.svg", alt: "OP_RETURN Scanner", caption: "OP_RETURN Scanner" },
-  ];
+// Search filtering
+document.getElementById('search-input').addEventListener('input', () => {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  document.querySelectorAll('#figuresGrid figure').forEach(fig => {
+    const caption = fig.querySelector('figcaption').textContent.toLowerCase();
+    fig.style.display = caption.includes(query) ? '' : 'none';
+  });
+});
 
-  let currentFilter = "All";
-
-  function shuffleFigures() {
-    const grid = document.getElementById('figuresGrid');
-    grid.innerHTML = '';
-    const shuffled = [...figuresData];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    shuffled.forEach(item => {
-      const figure = document.createElement('figure');
-      figure.innerHTML = `
-        <a href="${item.href}" target="_blank" rel="noopener noreferrer">
-          <img src="${item.src}" alt="${item.alt}" />
-        </a>
-        <figcaption>${item.caption}${item.subcaption ? `<p style="color: #c0c0c0;">${item.subcaption}</p>` : ''}</figcaption>
-      `;
-      // Add data-filter attribute for filtering if needed
-      figure.setAttribute('data-filter', item.subcaption || '');
-      grid.appendChild(figure);
-    });
-  }
-
-  function filterFigures(keyword) {
-    currentFilter = keyword;
-    document.querySelectorAll("#figuresGrid figure").forEach(f => {
-      if (keyword === "All") {
-        f.style.display = "";
+// Tag filtering
+document.querySelectorAll('.tag').forEach(tag => {
+  tag.onclick = () => {
+    const filterVal = tag.dataset.filter.toLowerCase();
+    document.querySelectorAll('#figuresGrid figure').forEach(fig => {
+      const caption = fig.querySelector('figcaption').textContent.toLowerCase();
+      if (filterVal === 'all' || caption.includes(filterVal)) {
+        fig.style.display = '';
       } else {
-        const captionText = f.querySelector("figcaption").textContent.toLowerCase();
-        f.style.display = captionText.toLowerCase().includes(keyword.toLowerCase()) ? "" : "none";
+        fig.style.display = 'none';
       }
     });
+  };
+});
+
+// Modal controls
+const giftBtn = document.getElementById('giftButton');
+const giftModal = document.getElementById('giftModal');
+const iframeOverlay = document.getElementById('iframeOverlay');
+const refillsIframe = document.getElementById('refillsIframe');
+
+giftBtn.onclick = () => { giftModal.style.display = 'flex'; };
+document.getElementById('closeGift').onclick = () => { giftModal.style.display = 'none'; };
+document.getElementById('openExternal').onclick = () => {
+  window.open('https://www.cryptorefills.com/', '_blank');
+  giftModal.style.display = 'none';
+};
+document.getElementById('openIframe').onclick = () => {
+  iframeOverlay.style.display = 'flex';
+  refillsIframe.src = 'https://www.cryptorefills.com/';
+  giftModal.style.display = 'none';
+};
+document.getElementById('closeIframe').onclick = () => {
+  iframeOverlay.style.display = 'none';
+  refillsIframe.src = '';
+};
+document.getElementById('iframeOverlay').onclick = (e) => {
+  if (e.target === document.getElementById('iframeOverlay')) {
+    iframeOverlay.style.display = 'none';
+    refillsIframe.src = '';
   }
+};
 
-  // Search filter
-  document.getElementById("searchInput").addEventListener("input", () => {
-    const q = document.getElementById("searchInput").value.toLowerCase();
-    document.querySelectorAll("#figuresGrid figure").forEach(f => {
-      const txt = f.querySelector("figcaption").textContent.toLowerCase();
-      const matchesFilter = currentFilter === "All" || txt.toLowerCase().includes(currentFilter.toLowerCase());
-      const matchesSearch = txt.includes(q);
-      f.style.display = (matchesFilter && matchesSearch) ? "" : "none";
-    });
-  });
+// Dark mode toggle
+document.getElementById('darkModeToggle').onclick = () => {
+  document.body.classList.toggle('dark-mode');
+  document.getElementById('darkModeToggle').textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
 
-  // Filter buttons
-  document.querySelectorAll('.filter-tag').forEach(btn => {
-    btn.onclick = () => {
-      filterFigures(btn.dataset.filter);
-    };
-  });
+  // Toggle dark mode class on modal
+  const modal = document.getElementById('giftModal');
+  modal.classList.toggle('dark-mode');
+};
 
-  // Gift Button Logic
-  const giftBtn = document.getElementById("giftButton");
-  const giftModal = document.getElementById("giftModal");
-  const iframeOverlay = document.getElementById("iframeOverlay");
-  const refillsIframe = document.getElementById("refillsIframe");
-  const closeIframeBtn = document.getElementById("closeIframe");
-  const closeGiftBtn = document.getElementById("closeGiftModal");
-  const openExternalBtn = document.getElementById("openExternal");
-  const openIframeBtn = document.getElementById("openIframe");
-
-  giftBtn.onclick = () => {
-    giftModal.style.display = "flex";
-  };
-
-  document.getElementById("closeGiftModal").onclick = () => {
-    giftModal.style.display = "none";
-  };
-
-  // External link option
-  openExternalBtn.onclick = () => {
-    window.open('https://www.cryptorefills.com/', '_blank');
-    giftModal.style.display = "none";
-  };
-
-  // Iframe view option
-  openIframeBtn.onclick = () => {
-    document.getElementById("iframeOverlay").style.display = "flex";
-    refillsIframe.src = 'https://www.cryptorefills.com/';
-    giftModal.style.display = "none";
-  };
-
-  // Close iframe overlay
-  document.getElementById("closeIframe").onclick = () => {
-    document.getElementById("iframeOverlay").style.display = "none";
-    refillsIframe.src = "";
-  };
-
-  // Clicking outside iframe closes overlay
-  document.getElementById("iframeOverlay").onclick = (e) => {
-    if (e.target === document.getElementById("iframeOverlay")) {
-      document.getElementById("iframeOverlay").style.display = "none";
-      refillsIframe.src = "";
-    }
-  };
-
-  // Initialize figures
-  document.addEventListener("DOMContentLoaded", () => {
-    shuffleFigures();
-  });
+// Initialize figures on page load
+document.addEventListener('DOMContentLoaded', () => {
+  populateFigures();
+});
 </script>
-
 </body>
 </html>
