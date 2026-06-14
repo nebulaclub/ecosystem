@@ -82,15 +82,20 @@
     -webkit-text-fill-color: transparent;
     margin: 0;
     letter-spacing: 2px;
-    animation: glow 2s infinite alternate ease-in-out;
+    /* Removed the glow animation to eliminate shadow */
+    /* animation: glow 2s infinite alternate ease-in-out; */
     flex: 1 1 auto;
     min-width: 200px;
     text-align: center;
   }
 
-  @keyframes glow {
+  /* @keyframes glow {
     0% { text-shadow: 0 4px 6px var(--shadow-color); }
     100% { text-shadow: 0 8px 12px var(--hover-shadow-color); }
+  } */
+
+  @keyframes glow {
+    /* Empty or commented out since animation is removed */
   }
 
   #top-buttons {
