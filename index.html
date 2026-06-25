@@ -518,7 +518,7 @@ document.getElementById('openExternal').onclick = () => {
 };
 document.getElementById('openIframe').onclick = () => {
   iframeOverlay.classList.add('show');
-  refillsIframe.src = 'https://www.cryptorefills.com/';
+  refillsIframe.src = 'https://www.cryptorefills.com/?ref=L4JVzCcsxp';
   giftModal.classList.remove('show');
 };
 document.getElementById('closeIframe').onclick = () => {
@@ -624,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const backToTopBtn = document.getElementById('backToTop');
 
 window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
+  if (window.pageYOffset > 500) {
     backToTopBtn.style.display = 'flex';
   } else {
     backToTopBtn.style.display = 'none';
