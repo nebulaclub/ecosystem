@@ -297,6 +297,29 @@
     cursor: pointer;
     z-index: 100000;
   }
+
+/* Back to Top Button Styles */
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 10px 15px;
+  font-size: 1.5em;
+  background-color: #66ccff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  display: none; /* Hidden by default */
+  z-index: 9999;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#backToTop:hover {
+  background-color: #55bbee;
+  transform: scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -352,6 +375,9 @@
   <button id="closeIframe">&times;</button>
   <iframe src="" id="refillsIframe"></iframe>
 </div>
+
+<!-- Back to Top button -->
+<button id="backToTop" title="Back to Top">↑</button>
 
 <script>
 // Figures array
@@ -592,6 +618,21 @@ document.addEventListener('DOMContentLoaded', () => {
   shuffleArray(figures);
   populateFigures();
 });
+
+// --- ADDITION: Back to Top Button Functionality ---
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTopBtn.style.display = 'block';
+  } else {
+    backToTopBtn.style.display = 'none';
+  }
+});
+
+backToTopBtn.onclick = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 </body>
 </html>
