@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
 <style>
   :root {
-    /* Light theme colors */
     --bg-color: #F3DCA3;
     --text-color: #333;
     --shadow-color: rgba(0,0,0,0.1);
@@ -23,7 +22,6 @@
   }
 
   body.dark-mode {
-    /* Dark theme overrides */
     --bg-color: #121212;
     --text-color: #eee;
     --shadow-color: rgba(0,0,0,0.4);
@@ -35,11 +33,7 @@
     --caption-color: #aaa;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   #particle-background {
     position: fixed;
@@ -166,7 +160,6 @@
     background: var(--filter-tag-hover);
     transform: scale(1.05);
   }
-  /* More readable in dark mode */
   body.dark-mode .tag {
     background: #555;
     color: #eee;
@@ -211,57 +204,7 @@
     color: var(--caption-color);
   }
 
-  #giftModal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(243, 220, 162, 0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  #giftModal.show {
-    display: flex;
-  }
-  #giftModal > div {
-    background: #F3DCA3;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    width: 90%;
-    text-align: center;
-  }
-  #giftModal > div h3 {
-    text-align: center;
-  }
-  /* Dark theme for modal background and inner div */
-  #giftModal.dark-mode {
-    background: rgba(18, 18, 18, 0.8);
-  }
-  #giftModal.dark-mode > div {
-    background: #222;
-    color: #eee;
-  }
-
-  #giftModal > div button {
-    margin: 10px 0;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 14px;
-    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-  }
-  #giftModal > div button:hover {
-    box-shadow: 0 0 20px #66a6ff;
-  }
-  #giftModal.dark-mode > div button {
-    background: #444;
-    color: #eee;
-  }
-
+  /* Overlay for iframe */
   #iframeOverlay {
     display: none;
     position: fixed;
@@ -276,8 +219,8 @@
     display: flex;
   }
   #refillsIframe {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     border: none;
   }
   #closeIframe {
@@ -350,17 +293,7 @@
   <div id="figuresGrid"></div>
 </div>
 
-<!-- Gift Modal -->
-<div id="giftModal">
-  <div>
-    <h3>Choose how to visit CryptoRefills</h3>
-    <div class="button-group">
-      <button id="openExternal">Open in New Tab</button>
-      <button id="openIframe">View in Iframe</button>
-    </div>
-    <button id="closeGift">Cancel</button>
-  </div>
-</div>
+<!-- Gift Modal (removed) -->
 
 <!-- Iframe overlay -->
 <div id="iframeOverlay">
@@ -463,16 +396,10 @@ function populateFigures() {
   container.innerHTML = html;
 }
 
-// On DOM load
+// DOM load
 document.addEventListener('DOMContentLoaded', () => {
-  // Set initial theme to dark
   document.body.classList.add('dark-mode');
-  // Set the toggle button text to "Light Mode" initially
   document.getElementById('darkModeToggle').textContent = 'Light Mode';
-
-  // Sync modal theme
-  document.getElementById('giftModal').classList.add('dark-mode');
-  document.querySelector('#giftModal > div').classList.add('dark-mode');
 
   shuffleArray(figures);
   populateFigures();
@@ -502,44 +429,30 @@ document.querySelectorAll('.tag').forEach(tag => {
   };
 });
 
-// Toggle category container
+// Category toggle
 const categoriesBtn = document.getElementById('categoriesButton');
 const categoriesContainer = document.getElementById('categoriesContainer');
 categoriesBtn.onclick = () => {
-  if (categoriesContainer.style.display === 'none') {
-    categoriesContainer.style.display = 'flex';
-  } else {
-    categoriesContainer.style.display = 'none';
-  }
+  categoriesContainer.style.display = categoriesContainer.style.display === 'none' ? 'flex' : 'none';
 };
 
-// Modal theme toggle (sync with page)
-const giftModal = document.getElementById('giftModal');
-const modalInnerDiv = document.querySelector('#giftModal > div');
-
-document.getElementById('darkModeToggle').onclick = () => {
-  document.body.classList.toggle('dark-mode');
-  giftModal.classList.toggle('dark-mode');
-  modalInnerDiv.classList.toggle('dark-mode');
-
-  // Update toggle button text
-  document.getElementById('darkModeToggle').textContent = 
-    document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+// Toggle dark mode
+const darkModeBtn = document.getElementById('darkModeToggle');
+const body = document.body;
+darkModeBtn.onclick = () => {
+  body.classList.toggle('dark-mode');
+  // update button text
+  darkModeBtn.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
 };
 
-// Gift modal control buttons
+// Handle Gift Cards button to open iframe directly
 const giftBtn = document.getElementById('giftButton');
-giftBtn.onclick = () => { document.getElementById('giftModal').classList.add('show'); };
-document.getElementById('closeGift').onclick = () => { document.getElementById('giftModal').classList.remove('show'); };
-document.getElementById('openExternal').onclick = () => {
-  window.open('https://www.cryptorefills.com/?ref=L4JVzCcsxp', '_blank');
-  document.getElementById('giftModal').classList.remove('show');
-};
-document.getElementById('openIframe').onclick = () => {
+giftBtn.onclick = () => {
   document.getElementById('iframeOverlay').classList.add('show');
   document.getElementById('refillsIframe').src = 'https://www.cryptorefills.com/?ref=L4JVzCcsxp';
-  document.getElementById('giftModal').classList.remove('show');
 };
+
+// Close iframe overlay
 document.getElementById('closeIframe').onclick = () => {
   document.getElementById('iframeOverlay').classList.remove('show');
   document.getElementById('refillsIframe').src = '';
@@ -551,7 +464,7 @@ document.getElementById('iframeOverlay').onclick = (e) => {
   }
 };
 
-// Particles (your existing code; omitted here for brevity)
+// Particles (your existing code omitted for brevity)
 const canvas = document.getElementById('particle-background');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -603,7 +516,6 @@ function animate() {
     }
     p.update(); p.draw();
   }
-  // draw lines
   for (let a=0; a<particlesArray.length; a++) {
     for (let b=a+1; b<particlesArray.length; b++) {
       const dx = particlesArray[a].x - particlesArray[b].x;
@@ -631,5 +543,7 @@ backToTopBtn.onclick = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 </script>
+</body>
+</html>
 </body>
 </html>
