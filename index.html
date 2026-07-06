@@ -237,7 +237,7 @@ figcaption {
 <div id="content">
   <!-- Always show this message with styled email link -->
   <div class="message-container">
-    <p>If you accept Bitcoin Cash and want to get listed, please send your image and site link to <a href="mailto:celsians@atomicmail.io">celsians@atomicmail.io</a></p>
+    <p>If you accept Bitcoin Cash and want to get listed, send your image and site link to <a href="mailto:celsians@atomicmail.io">celsians@atomicmail.io</a></p>
   </div>
   <!-- Figures grid -->
   <div id="figures" style="margin-top:20px;"></div>
@@ -247,166 +247,163 @@ figcaption {
 <div id="backToTop">↑</div>
 
 <script>
-  // Full figures array
-const figures = [
-  // Mutual Aid
-  { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Currumbin Wildlife Hospital", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Global Sanctuary for Elephants", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWylS6OEXxvnDZ%2BWUlatMS%2F%2FlXzeU2jazYw0AkugMKg%3D%3D", src: "https://i.postimg.cc/xNKj2W8y/treehousehumane.png", alt: "Tree House Humane Society", caption: "Tree House Humane Society", subcaption: "Mutual Aid Contract" },
+  const figures = [
+    // Mutual Aid
+    { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Currumbin Wildlife Hospital", subcaption: "Mutual Aid" },
+    { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Global Sanctuary for Elephants", subcaption: "Mutual Aid" },
+    { href: "https://unspent.cash/s?q=eJwrWylS6OEXxvnDZ%2BWUlatMS%2F%2FlXzeU2jazYw0AkugMKg%3D%3D", src: "https://i.postimg.cc/xNKj2W8y/treehousehumane.png", alt: "Tree House Humane Society", caption: "Tree House Humane Society", subcaption: "Mutual Aid" },
 
-  // Commerce
-  { href: "https://www.redbubble.com/i/sticker/BitcoinCash-Accepted-Here-Stickers-by-dwnlives/145620413/7sgk", src: "https://i.postimg.cc/hhq5r7qN/bchsticker.png", alt: "BitcoinCash Stickers", caption: "BitcoinCash Stickers", subcaption: "Commerce" },
-  { href: "https://www.redbubble.com/i/mug/Party-Guru-by-dwnlives/169504252/7yqg", src: "https://i.postimg.cc/bdHFFNzM/gurumugparty.png", alt: "BCH Guru Coffee Mug", caption: "BCH Guru Coffee Mug", subcaption: "Commerce" },
+    // Commerce
+    { href: "https://www.redbubble.com/i/sticker/BitcoinCash-Accepted-Here-Stickers-by-dwnlives/145620413/7sgk", src: "https://i.postimg.cc/hhq5r7qN/bchsticker.png", alt: "BitcoinCash Stickers", caption: "BitcoinCash Stickers", subcaption: "Commerce" },
+    { href: "https://www.redbubble.com/i/mug/Party-Guru-by-dwnlives/169504252/7yqg", src: "https://i.postimg.cc/bdHFFNzM/gurumugparty.png", alt: "BCH Guru Coffee Mug", caption: "BCH Guru Coffee Mug", subcaption: "Commerce" },
 
-  // Community
-  { href: "https://www.coingecko.com/en/coins/celsius-network-token", src: "https://i.postimg.cc/nCcYYNH9/CEL-logo.png", alt: "CEL", caption: "CEL", subcaption: "Community Stats" },
-  { href: "https://www.coingecko.com/en/coins/mother-iggy", src: "https://i.postimg.cc/HrwnmCGT/MOTHER.png", alt: "MOTHER", caption: "MOTHER", subcaption: "Community Stats" },
-  { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://i.postimg.cc/Z9xTZ34q/gururewards.png", alt: "BCH Guru Rewards", caption: "BCH Guru Rewards", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWymSdH7CRFfZ5OxNM76Iv93i%2FvP6vE96HWsApJUNtQ%3D%3D", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", alt: "CELQ Rewards", caption: "CELQ Rewards", subcaption: "Mutual Aid Contract" },
-  { href: "https://bchnostr.com/", src: "https://i.postimg.cc/Cx84BqXy/bchnostr.png", alt: "BCHNostr", caption: "BCHNostr", subcaption: "Community Social" },
-  { href: "https://gaze.cash/", src: "https://i.postimg.cc/QFzYNMpZ/gaze.png", alt: "Gaze.Cash", caption: "Gaze.Cash", subcaption: "Media Community" },
-  { href: "https://celsians.github.io/club/", src: "https://i.postimg.cc/7JrKvWPF/celsians-NEW.png", alt: "Celsians Club", caption: "Celsians Club", subcaption: "Support Community" },  
+    // Community
+    { href: "https://www.coingecko.com/en/coins/celsius-network-token", src: "https://i.postimg.cc/nCcYYNH9/CEL-logo.png", alt: "CEL", caption: "CEL", subcaption: "Community" },
+    { href: "https://www.coingecko.com/en/coins/mother-iggy", src: "https://i.postimg.cc/HrwnmCGT/MOTHER.png", alt: "MOTHER", caption: "MOTHER", subcaption: "Community" },
+    { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://i.postimg.cc/Z9xTZ34q/gururewards.png", alt: "BCH Guru Rewards", caption: "BCH Guru Rewards", subcaption: "Community" },
+    { href: "https://unspent.cash/s?q=eJwrWymSdH7CRFfZ5OxNM76Iv93i%2FvP6vE96HWsApJUNtQ%3D%3D", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", alt: "CELQ Rewards", caption: "CELQ Rewards", subcaption: "Community" },
+    { href: "https://bchnostr.com/", src: "https://i.postimg.cc/Cx84BqXy/bchnostr.png", alt: "BCHNostr", caption: "BCHNostr", subcaption: "Community" },
+    { href: "https://gaze.cash/", src: "https://i.postimg.cc/QFzYNMpZ/gaze.png", alt: "Gaze.Cash", caption: "Gaze.Cash", subcaption: "Media Community" },
+    { href: "https://celsians.github.io/club/", src: "https://i.postimg.cc/7JrKvWPF/celsians-NEW.png", alt: "Celsians Club", caption: "Celsians Club", subcaption: "Support Community" },
 
-  // DeFi
-  { href: "https://unspent.cash/", src: "https://i.postimg.cc/Hj5tX2Xh/unspent.png", alt: "Unspent", caption: "Unspent", subcaption: "DeFi" },
-  { href: "https://afifthofgaming.com/", src: "https://i.postimg.cc/r0RNhGbd/afog.png", alt: "AFOG", caption: "AFOG", subcaption: "DeFi" },
-  { href: "https://bchbull.com/", src: "https://i.postimg.cc/G8TxMPN8/bchbull-dark.png", alt: "BCH Bull", caption: "BCH Bull", subcaption: "DeFi" },
-  { href: "https://bch.games/", src: "https://i.postimg.cc/G8TxMPNs/BCHgames.png", alt: "BCH.games", caption: "BCH.games", subcaption: "DeFi" },
-  { href: "https://bchpump.cash/pump/about", src: "https://i.postimg.cc/MMfms041/bchpump.png", alt: "BCH PUMP", caption: "BCH PUMP", subcaption: "DeFi" },
-  { href: "https://www.cauldron.quest/", src: "https://i.postimg.cc/t7HBrwqP/cauldron.png", alt: "Cauldron DEX", caption: "Cauldron DEX", subcaption: "DeFi" },
-  { href: "https://tapswap.cash/", src: "https://i.postimg.cc/3WpZmBmt/tapsw-ap-dark.png", alt: "TapSwap DEX", caption: "TapSwap DEX", subcaption: "DeFi" },
-  { href: "https://dropship.cash/", src: "https://i.postimg.cc/QCC4916X/dropship-icon.png", alt: "DropShip", caption: "DropShip", subcaption: "DeFi" },
-  { href: "https://app.bch.guru/#/", src: "https://i.postimg.cc/CzxF7Db4/gurulogo.png", alt: "BCH Guru", caption: "BCH Guru", subcaption: "Predictions DeFi" },
-  { href: "https://tokenaut.cash/", src: "https://i.postimg.cc/7PtQvt6k/tokenaut.png", alt: "Tokenaut", caption: "Tokenaut", subcaption: "DeFi" },
-  { href: "defillama.com/chain/Bitcoincash", src: "https://i.postimg.cc/QKLkv9Gy/defillama.png", alt: "DeFi Llama", caption: "DeFi Llama", subcaption: "DeFi" },
-  { href: "https://paryonusd.com/app", src: "https://i.postimg.cc/xcnP4jdH/paryonusd.png", alt: "ParyonUSD", caption: "ParyonUSD", subcaption: "DeFi Borrowing" },
+    // DeFi
+    { href: "https://unspent.cash/", src: "https://i.postimg.cc/Hj5tX2Xh/unspent.png", alt: "Unspent", caption: "Unspent", subcaption: "DeFi" },
+    { href: "https://afifthofgaming.com/", src: "https://i.postimg.cc/r0RNhGbd/afog.png", alt: "AFOG", caption: "AFOG", subcaption: "DeFi" },
+    { href: "https://bchbull.com/", src: "https://i.postimg.cc/G8TxMPN8/bchbull-dark.png", alt: "BCH Bull", caption: "BCH Bull", subcaption: "DeFi" },
+    { href: "https://bch.games/", src: "https://i.postimg.cc/G8TxMPNs/BCHgames.png", alt: "BCH.games", caption: "BCH.games", subcaption: "DeFi" },
+    { href: "https://bchpump.cash/pump/about", src: "https://i.postimg.cc/MMfms041/bchpump.png", alt: "BCH PUMP", caption: "BCH PUMP", subcaption: "DeFi" },
+    { href: "https://www.cauldron.quest/", src: "https://i.postimg.cc/t7HBrwqP/cauldron.png", alt: "Cauldron DEX", caption: "Cauldron DEX", subcaption: "DeFi" },
+    { href: "https://tapswap.cash/", src: "https://i.postimg.cc/3WpZmBmt/tapsw-ap-dark.png", alt: "TapSwap DEX", caption: "TapSwap DEX", subcaption: "DeFi" },
+    { href: "https://dropship.cash/", src: "https://i.postimg.cc/QCC4916X/dropship-icon.png", alt: "DropShip", caption: "DropShip", subcaption: "DeFi" },
+    { href: "https://app.bch.guru/#/", src: "https://i.postimg.cc/CzxF7Db4/gurulogo.png", alt: "BCH Guru", caption: "BCH Guru", subcaption: "Predictions DeFi" },
+    { href: "https://tokenaut.cash/", src: "https://i.postimg.cc/7PtQvt6k/tokenaut.png", alt: "Tokenaut", caption: "Tokenaut", subcaption: "DeFi" },
+    { href: "defillama.com/chain/Bitcoincash", src: "https://i.postimg.cc/QKLkv9Gy/defillama.png", alt: "DeFi Llama", caption: "DeFi Llama", subcaption: "DeFi" },
+    { href: "https://paryonusd.com/app", src: "https://i.postimg.cc/xcnP4jdH/paryonusd.png", alt: "ParyonUSD", caption: "ParyonUSD", subcaption: "DeFi Borrowing" },
 
-  // Self Custody
-  { href: "https://wallet.bitcoin.com/", src: "https://i.postimg.cc/5Y4Jbm2P/bcom-logo.png", alt: "Bitcoin.com", caption: "Bitcoin.com", subcaption: "Self Custody" },
-  { href: "https://electroncash.org/", src: "https://i.postimg.cc/8JZS5r7B/electroncash.png", alt: "Electron Cash", caption: "Electron Cash", subcaption: "Self Custody" },
-  { href: "https://cakewallet.com/", src: "https://i.postimg.cc/MM6wqYp3/cakewallet.png", alt: "Cake Wallet", caption: "Cake Wallet", subcaption: "Self Custody" },
-  { href: "https://cashonize.com/", src: "https://i.postimg.cc/9Rm2CBQN/cashonize.png", alt: "Cashonize", caption: "Cashonize", subcaption: "Self Custody" },
-  { href: "https://cashaddress.org/", src: "https://i.postimg.cc/vgYybvZq/cashaddress.png", alt: "Cash Address", caption: "Cash Address", subcaption: "Self Custody" },
-  { href: "https://flowee.org/products/pay", src: "https://i.postimg.cc/vg0sB647/Flowee-Pay.png", alt: "Flowee Pay", caption: "Flowee Pay", subcaption: "Self Custody" },
-  { href: "https://www.optnlabs.com/", src: "https://i.postimg.cc/TLt6wWKJ/optn.png", alt: "OPTN", caption: "OPTN", subcaption: "Self Custody" },
-  { href: "https://www.paytaca.com/", src: "https://i.postimg.cc/2b0D6B1G/paytaca.png", alt: "Paytaca", caption: "Paytaca", subcaption: "Self Custody" },
-  { href: "https://selene.cash/", src: "https://i.postimg.cc/qh1TRCN1/selene.png", alt: "Selene", caption: "Selene", subcaption: "Self Custody" },
-  { href: "https://stackwallet.com/", src: "https://i.postimg.cc/0MVsQJzW/stack.png", alt: "Stack Wallet", caption: "Stack Wallet", subcaption: "Self Custody" },
+    // Self Custody
+    { href: "https://wallet.bitcoin.com/", src: "https://i.postimg.cc/5Y4Jbm2P/bcom-logo.png", alt: "Bitcoin.com", caption: "Bitcoin.com", subcaption: "Self Custody" },
+    { href: "https://electroncash.org/", src: "https://i.postimg.cc/8JZS5r7B/electroncash.png", alt: "Electron Cash", caption: "Electron Cash", subcaption: "Self Custody" },
+    { href: "https://cakewallet.com/", src: "https://i.postimg.cc/MM6wqYp3/cakewallet.png", alt: "Cake Wallet", caption: "Cake Wallet", subcaption: "Self Custody" },
+    { href: "https://cashonize.com/", src: "https://i.postimg.cc/9Rm2CBQN/cashonize.png", alt: "Cashonize", caption: "Cashonize", subcaption: "Self Custody" },
+    { href: "https://cashaddress.org/", src: "https://i.postimg.cc/vgYybvZq/cashaddress.png", alt: "Cash Address", caption: "Cash Address", subcaption: "Self Custody" },
+    { href: "https://flowee.org/products/pay", src: "https://i.postimg.cc/vg0sB647/Flowee-Pay.png", alt: "Flowee Pay", caption: "Flowee Pay", subcaption: "Self Custody" },
+    { href: "https://www.optnlabs.com/", src: "https://i.postimg.cc/TLt6wWKJ/optn.png", alt: "OPTN", caption: "OPTN", subcaption: "Self Custody" },
+    { href: "https://www.paytaca.com/", src: "https://i.postimg.cc/2b0D6B1G/paytaca.png", alt: "Paytaca", caption: "Paytaca", subcaption: "Self Custody" },
+    { href: "https://selene.cash/", src: "https://i.postimg.cc/qh1TRCN1/selene.png", alt: "Selene", caption: "Selene", subcaption: "Self Custody" },
+    { href: "https://stackwallet.com/", src: "https://i.postimg.cc/0MVsQJzW/stack.png", alt: "Stack Wallet", caption: "Stack Wallet", subcaption: "Self Custody" },
 
-  // Privacy
-  { href: "https://cashfusion.org/", src: "https://i.postimg.cc/sMZyfX9B/Cash-Fusion.png", alt: "CashFusion", caption: "CashFusion", subcaption: "Privacy Protocol" },
-  { href: "https://ariavpn.net/", src: "https://i.postimg.cc/PC8hfxzP/aria.png", alt: "Aria", caption: "Aria", subcaption: "VPN Privacy" },
-  { href: "https://mullvad.net/en", src: "https://i.postimg.cc/v46M8BLD/mullvad.png", alt: "Mullvad", caption: "Mullvad", subcaption: "VPN Privacy" },
-  { href: "https://www.privateinternetaccess.com/", src: "https://i.postimg.cc/18NPRtcn/pia.png", alt: "PIA", caption: "PIA", subcaption: "VPN Privacy" },
+    // Privacy
+    { href: "https://cashfusion.org/", src: "https://i.postimg.cc/sMZyfX9B/Cash-Fusion.png", alt: "CashFusion", caption: "CashFusion", subcaption: "Privacy" },
+    { href: "https://ariavpn.net/", src: "https://i.postimg.cc/PC8hfxzP/aria.png", alt: "Aria", caption: "Aria", subcaption: "VPN Privacy" },
+    { href: "https://mullvad.net/en", src: "https://i.postimg.cc/v46M8BLD/mullvad.png", alt: "Mullvad", caption: "Mullvad", subcaption: "VPN Privacy" },
+    { href: "https://www.privateinternetaccess.com/", src: "https://i.postimg.cc/18NPRtcn/pia.png", alt: "PIA", caption: "PIA", subcaption: "VPN Privacy" },
 
-  // Explorers
-  { href: "https://cashtokenmarkets.bch-1.org/", src: "https://i.postimg.cc/k61x6Ft9/cashtokenmarkets.png", alt: "CashToken Markets", caption: "CashToken Markets", subcaption: "Explorers" },
-  { href: "https://3xpl.com/bitcoin-cash", src: "https://i.postimg.cc/VrGjrBbc/3xpl.png", alt: "3xpl", caption: "3xpl", subcaption: "Explorers" },
-  { href: "https://bchexplorer.cash/", src: "https://i.postimg.cc/9R8GRtqc/melroy.png", alt: "Melroy", caption: "Melroy", subcaption: "Explorers" },
-  { href: "https://blockchain.com/explorer/assets/bch", src: "https://i.postimg.cc/zbtnbSRr/blockchaincom.png", alt: "Blockchain.com", caption: "Blockchain.com", subcaption: "Explorers" },
-  { href: "https://blockchair.com/bitcoin-cash", src: "https://i.postimg.cc/BLYxLc14/blockchair.png", alt: "Blockchair", caption: "Blockchair", subcaption: "Explorers" },
-  { href: "https://tokenexplorer.cash/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BCMR Token", caption: "BCMR Token", subcaption: "Explorers" },
-  { href: "https://explorer.salemkode.com/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Salem Kode", caption: "Salem Kode", subcaption: "Explorers" },
-  { href: "https://cashflow.dev/graph", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Cashflow", caption: "Cashflow", subcaption: "Explorers" },
-  { href: "https://tokenstork.com/", src: "https://i.postimg.cc/rKxMRX8v/Token-Stork.png", alt: "TokenStork", caption: "TokenStork", subcaption: "Explorers" },
+    // Explorers
+    { href: "https://cashtokenmarkets.bch-1.org/", src: "https://i.postimg.cc/k61x6Ft9/cashtokenmarkets.png", alt: "CashToken Markets", caption: "CashToken Markets", subcaption: "Explorers" },
+    { href: "https://3xpl.com/bitcoin-cash", src: "https://i.postimg.cc/VrGjrBbc/3xpl.png", alt: "3xpl", caption: "3xpl", subcaption: "Explorers" },
+    { href: "https://bchexplorer.cash/", src: "https://i.postimg.cc/9R8GRtqc/melroy.png", alt: "Melroy", caption: "Melroy", subcaption: "Explorers" },
+    { href: "https://blockchain.com/explorer/assets/bch", src: "https://i.postimg.cc/zbtnbSRr/blockchaincom.png", alt: "Blockchain.com", caption: "Blockchain.com", subcaption: "Explorers" },
+    { href: "https://blockchair.com/bitcoin-cash", src: "https://i.postimg.cc/BLYxLc14/blockchair.png", alt: "Blockchair", caption: "Blockchair", subcaption: "Explorers" },
+    { href: "https://tokenexplorer.cash/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BCMR Token", caption: "BCMR Token", subcaption: "Explorers" },
+    { href: "https://explorer.salemkode.com/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Salem Kode", caption: "Salem Kode", subcaption: "Explorers" },
+    { href: "https://cashflow.dev/graph", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Cashflow", caption: "Cashflow", subcaption: "Explorers" },
+    { href: "https://tokenstork.com/", src: "https://i.postimg.cc/rKxMRX8v/Token-Stork.png", alt: "TokenStork", caption: "TokenStork", subcaption: "Explorers" },
 
-  // Informational
-  { href: "https://minisatoshi.cash/upgrade-history", src: "https://i.postimg.cc/zbpZhC6V/minisatoshi.png", alt: "Minisatoshi", caption: "Minisatoshi", subcaption: "Informational" },
-  { href: "https://bchfaq.com/", src: "https://i.postimg.cc/k6w3SQZk/BCHFAQ.png", alt: "Bitcoin Cash FAQ", caption: "Bitcoin Cash FAQ", subcaption: "Informational" },
-  { href: "https://www.youtube.com/@BitcoinCashUniversity", src: "https://i.postimg.cc/J0C19KQs/BCH-University.png", alt: "BCH University", caption: "BCH University", subcaption: "Informational" },
-  { href: "https://bitcoincash.org/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BitcoinCash.org", caption: "BitcoinCash.org", subcaption: "Informational" },
-  { href: "https://discover.cash/", src: "https://i.postimg.cc/ygn4RmtN/discover.png", alt: "Discover.Cash", caption: "Discover.Cash", subcaption: "Informational" },
-  { href: "https://whybitcoincash.com/", src: "https://i.postimg.cc/njTbm4gj/whybitcoincash.png", alt: "Why Bitcoin Cash", caption: "Why Bitcoin Cash", subcaption: "Informational" },
-  { href: "https://realbitcoin.cash/", src: "https://i.postimg.cc/TLQMbVFT/bitcoincash.png", alt: "Real Bitcoin Cash", caption: "Real Bitcoin Cash", subcaption: "Informational" },
-];
+    // Informational
+    { href: "https://minisatoshi.cash/upgrade-history", src: "https://i.postimg.cc/zbpZhC6V/minisatoshi.png", alt: "Minisatoshi", caption: "Minisatoshi", subcaption: "Informational" },
+    { href: "https://bchfaq.com/", src: "https://i.postimg.cc/k6w3SQZk/BCHFAQ.png", alt: "Bitcoin Cash FAQ", caption: "Bitcoin Cash FAQ", subcaption: "Informational" },
+    { href: "https://www.youtube.com/@BitcoinCashUniversity", src: "https://i.postimg.cc/J0C19KQs/BCH-University.png", alt: "BCH University", caption: "BCH University", subcaption: "Informational" },
+    { href: "https://bitcoincash.org/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BitcoinCash.org", caption: "BitcoinCash.org", subcaption: "Informational" },
+    { href: "https://discover.cash/", src: "https://i.postimg.cc/ygn4RmtN/discover.png", alt: "Discover.Cash", caption: "Discover.Cash", subcaption: "Informational" },
+    { href: "https://whybitcoincash.com/", src: "https://i.postimg.cc/njTbm4gj/whybitcoincash.png", alt: "Why Bitcoin Cash", caption: "Why Bitcoin Cash", subcaption: "Informational" },
+    { href: "https://realbitcoin.cash/", src: "https://i.postimg.cc/TLQMbVFT/bitcoincash.png", alt: "Real Bitcoin Cash", caption: "Real Bitcoin Cash", subcaption: "Informational" },
+  ];
 
-function shuffleArray(array) {
-  for (let i=array.length-1; i>0; i--) {
-    const j = Math.floor(Math.random() * (i+1));
-    [array[i], array[j]] = [array[j], array[i]];
+  function shuffleArray(array) {
+    for (let i=array.length-1; i>0; i--) {
+      const j = Math.floor(Math.random() * (i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
-}
 
-function populateFigures() {
-  const container = document.getElementById('figures');
-  container.innerHTML = '';
-  figures.forEach(item => {
-    const figure = document.createElement('figure');
-    figure.setAttribute('data-category', item.caption);
-    figure.innerHTML = `
-      <a href="${item.href}" target="_blank" rel="noopener noreferrer">
-        <img src="${item.src}" alt="${item.alt}">
-      </a>
-      <figcaption>${item.alt}</figcaption>
-    `;
-    container.appendChild(figure);
-  });
-}
+  function populateFigures() {
+    const container = document.getElementById('figures');
+    container.innerHTML = '';
+    figures.forEach(item => {
+      const figure = document.createElement('figure');
+      // Assign category based on subcaption
+      figure.setAttribute('data-category', item.subcaption);
+      figure.innerHTML = `
+        <a href="${item.href}" target="_blank" rel="noopener noreferrer">
+          <img src="${item.src}" alt="${item.alt}">
+        </a>
+        <figcaption>${item.alt}</figcaption>
+      `;
+      container.appendChild(figure);
+    });
+  }
 
-function filterFigures(type, value) {
-  document.querySelectorAll('#figures figure').forEach(fig => {
-    const category = fig.dataset.category.toLowerCase();
-    const alt = fig.querySelector('img').alt.toLowerCase();
-    if (type === 'category') {
-      if (value === 'All' || category === value.toLowerCase()) {
-        fig.style.display = '';
-      } else {
-        fig.style.display = 'none';
+  function filterFigures(type, value) {
+    document.querySelectorAll('#figures figure').forEach(fig => {
+      const category = fig.dataset.category.toLowerCase();
+      const alt = fig.querySelector('img').alt.toLowerCase();
+      if (type === 'category') {
+        if (value.toLowerCase() === 'all' || category === value.toLowerCase()) {
+          fig.style.display = '';
+        } else {
+          fig.style.display = 'none';
+        }
+      } else if (type === 'search') {
+        if (value === 'all' || category.includes(value) || alt.includes(value)) {
+          fig.style.display = '';
+        } else {
+          fig.style.display = 'none';
+        }
       }
-    } else if (type === 'search') {
-      if (value === 'all' || category.includes(value) || alt.includes(value)) {
-        fig.style.display = '';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize in dark mode
+    document.body.classList.add('dark-mode');
+
+    // Mode toggle
+    const modeToggle = document.getElementById('mode-toggle');
+    modeToggle.innerHTML = '🌙';
+    modeToggle.onclick = () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        modeToggle.innerHTML = '🌙';
       } else {
-        fig.style.display = 'none';
+        modeToggle.innerHTML = '☀️';
       }
-    }
-  });
-}
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize in dark mode
-  document.body.classList.add('dark-mode');
+    // Populate figures
+    shuffleArray(figures);
+    populateFigures();
+    filterFigures('category', 'All');
 
-  // Mode toggle
-  const modeToggle = document.getElementById('mode-toggle');
-  modeToggle.innerHTML = '🌙';
-  modeToggle.onclick = () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-      modeToggle.innerHTML = '🌙';
-    } else {
-      modeToggle.innerHTML = '☀️';
-    }
-  };
+    // Search filtering
+    document.getElementById('sidebar-search').addEventListener('input', e => {
+      filterFigures('search', e.target.value.toLowerCase());
+    });
 
-  // Populate figures
-  shuffleArray(figures);
-  populateFigures();
-  filterFigures('category', 'All');
+    // Category buttons
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.onclick = () => {
+        filterFigures('category', btn.dataset.filter);
+      };
+    });
 
-  // Search filtering
-  document.getElementById('sidebar-search').addEventListener('input', e => {
-    filterFigures('search', e.target.value.toLowerCase());
-  });
-
-  // Category buttons
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.onclick = () => {
-      filterFigures('category', btn.dataset.filter);
+    // Back to top
+    window.addEventListener('scroll', () => {
+      document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
+    });
+    document.getElementById('backToTop').onclick = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
   });
-
-  // Remove sidebar toggle code
-  // (since always expanded, no toggle needed)
-
-  // Back to top
-  window.addEventListener('scroll', () => {
-    document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
-  });
-  document.getElementById('backToTop').onclick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-});
 </script>
 
 </body>
