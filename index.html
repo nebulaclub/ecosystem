@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>All Figures with Collapsible Sidebar</title>
+<title>Celsians Club</title>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
@@ -54,15 +54,34 @@
     flex-direction: column;
     align-items: center;
     width: 220px;
-    transition: width 0.3s;
+    transition: width 0.3s, padding 0.3s;
     overflow: hidden;
     z-index: 1000;
+    padding-top: 10px;
   }
   #sidebar.collapsed {
     width: 60px;
+    padding-top: 10px;
+  }
+  #sidebar.collapsed h1,
+  #sidebar.collapsed #categoriesContainer,
+  #sidebar.collapsed input[type="search"] {
+    display: none;
   }
 
-  /* Smaller toggle button (top-left, out of the way) */
+  /* Title always hidden in collapsed mode, but kept for expanded */
+  #sidebar h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  /* Toggle button fixed at top-left */
   #toggleButton {
     position: fixed;
     top: 10px;
@@ -70,10 +89,10 @@
     background: white;
     color: black;
     border: none;
-    padding: 4px 8px; /* smaller padding */
+    padding: 4px 8px;
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    font-size: 1em; /* smaller icon size */
+    font-size: 1em;
     cursor: pointer;
     z-index: 1100;
   }
@@ -81,7 +100,7 @@
     background: #f0f0f0;
   }
 
-  /* Mode toggle icon (top-right) remains the same but smaller if desired */
+  /* Mode toggle icon */
   #mode-toggle {
     position: fixed;
     top: 10px;
@@ -93,41 +112,27 @@
     z-index: 1100;
   }
 
-  /* Space between toggle button and search inside sidebar */
+  /* Search styles, hidden in collapsed mode */
   #sidebar input[type="search"] {
-    margin-top: 40px; /* added space from the small toggle button */
-  }
-
-  /* Hide category text when collapsed */
-  #sidebar.collapsed #categoriesContainer {
-    display: none;
-  }
-  #sidebar.collapsed #categoryButton span {
-    display: none;
-  }
-
-  /* Search box styles */
-  #sidebar-search {
+    margin-top: 10px;
     width: 100%;
     padding: 8px 12px;
     border-radius: 12px;
     border: 1px solid #ccc;
     font-family: 'Ubuntu', Arial, sans-serif;
     font-size: 14px;
-    margin-bottom: 20px;
-  }
-  #sidebar-search:focus {
-    box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
-    border-color: #0AC18E;
   }
 
-  /* Category buttons container */
+  /* Category container, hidden when collapsed */
   #categoriesContainer {
     display: flex;
     flex-direction: column;
     gap: 8px;
     width: 100%;
+    margin-top: 10px;
   }
+
+  /* Category buttons */
   .category-btn {
     padding: 8px 12px;
     font-family: 'Ubuntu', Arial, sans-serif;
@@ -138,7 +143,6 @@
     background: var(--category-bg, #fff);
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
-    width: 100%;
   }
   #sidebar.collapsed .category-btn {
     padding: 8px;
@@ -150,47 +154,58 @@
   }
 
   /* Main content */
-  #content {
-    margin-left: 220px;
-    padding: 20px;
-    flex: 1;
-    transition: margin-left 0.3s;
-  }
-  body.collapsed-sidebar #content {
-    margin-left: 60px;
-  }
+#content {
+  margin-left: 220px;
+  padding: 20px;
+  flex: 1;
+  transition: margin-left 0.3s;
+}
+body.collapsed-sidebar #content {
+  margin-left: 60px;
+}
 
-  /* Figures grid */
+/* Figures grid – flexible flow, maintain aspect ratio scaling better */
+#figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media(max-width: 1200px) {
   #figures {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
-  @media (max-width: 1200px) {
-    body.collapsed-sidebar #figures {
-      grid-template-columns: repeat(7, 1fr);
-    }
+}
+@media(max-width: 900px) {
+  #figures {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
+}
+@media(max-width: 600px) {
+  #figures {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+}
 
-  /* Figures styling */
+/* Figures styling with better scaling */
 figure {
-    background: var(--figure-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px var(--figure-shadow);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.3s;
-  }
+  background: var(--figure-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--figure-shadow);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s;
+}
 figure:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 20px rgba(0,0,0,0.7);
 }
 figure img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  max-width: 100%;
+  height: auto; /* maintain aspect ratio */
   border-radius: 8px;
 }
 figcaption {
@@ -199,56 +214,19 @@ figcaption {
   color: var(--caption-color);
   text-align: center;
 }
-
-/* Back to Top button styles */
-#backToTop {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: #66ccff;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  font-size: 1.5em;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px var(--shadow-color);
-  cursor: pointer;
-}
-#backToTop:hover {
-  background: #55bbee;
-  transform: scale(1.1);
-}
-
-/* Responsive video container for aspect ratio */
-.video-container {
-  position: relative;
-  width: 100%;
-  max-width: 560px;
-  aspect-ratio: 16/9;
-  margin: 0 auto;
-}
-.video-container iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-}
 </style>
 </head>
 <body>
 
-<!-- Smaller toggle button (top-left, out of the way) -->
+<!-- Toggle button fixed at top-left -->
 <button id="toggleButton" title="Collapse/Expand Sidebar">☰</button>
 
-<!-- Dark/Light mode toggle icon (top-right) -->
+<!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
 
 <!-- Sidebar -->
 <div id="sidebar">
+  <h1>𝕮𝖊𝖑𝖘𝖎𝖆𝖓𝖘 𝕮𝖑𝖚𝖇</h1>
   <input type="search" id="sidebar-search" placeholder="Search Bitcoin Cash" />
   <div id="categoriesContainer">
     <button class="category-btn" data-filter="All"><span>All</span></button>
@@ -265,22 +243,16 @@ figcaption {
 
 <!-- Main content -->
 <div id="content">
-  <h1 style="font-family:'Pacifico', cursive; font-size:2em; background: linear-gradient(135deg, #89f7fe, #66a6ff); -webkit-background-clip:text; -webkit-text-fill-color: transparent; text-align:center;">𝕮𝖊𝖑𝖘𝖎𝖆𝖓𝖘 𝕮𝖑𝖚𝖇</h1>
-  
-  <!-- Responsive Video -->
   <div class="video-container" style="margin-top:10px;">
     <iframe src="https://www.youtube.com/embed/flPCk8Z5XS0" allowfullscreen></iframe>
   </div>
-
-  <!-- Figures grid -->
   <div id="figures" style="margin-top:20px;"></div>
 </div>
 
-<!-- Back to Top Button -->
+<!-- Back to Top -->
 <div id="backToTop">↑</div>
 
 <script>
-// Data for figures
 const figures = [
   { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Mutual Aid" },
   { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Mutual Aid" },
@@ -352,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize in dark mode
   document.body.classList.add('dark-mode');
 
-  // Mode toggle icon
+  // Mode toggle
   const modeToggle = document.getElementById('mode-toggle');
   modeToggle.innerHTML = '🌙';
   modeToggle.onclick = () => {
@@ -369,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateFigures();
   filterFigures('category', 'All');
 
-  // Sidebar search
+  // Search
   document.getElementById('sidebar-search').addEventListener('input', e => {
     filterFigures('search', e.target.value.toLowerCase());
   });
@@ -381,16 +353,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  // Collapse/expand sidebar
+  // Toggle sidebar
   document.getElementById('toggleButton').onclick = () => {
     document.getElementById('sidebar').classList.toggle('collapsed');
+    // No need for expanded class
     document.getElementById('content').style.marginLeft = 
       document.getElementById('sidebar').classList.contains('collapsed') ? '60px' : '220px';
-    if (document.getElementById('sidebar').classList.contains('collapsed')) {
-      document.getElementById('figures').style.gridTemplateColumns = 'repeat(7, 1fr)';
-    } else {
-      document.getElementById('figures').style.gridTemplateColumns = 'repeat(auto-fit,minmax(150px,1fr))';
-    }
   };
 
   // Back to top
