@@ -43,7 +43,7 @@
     min-height: 100vh;
   }
 
-  /* Sidebar styles */
+  /* Sidebar styles, always expanded */
   #sidebar {
     position: fixed;
     top: 0; left: 0;
@@ -55,21 +55,13 @@
     flex-direction: column;
     align-items: center;
     width: 140px;
-    transition: width 0.3s;
+    transition: none; /* no transition needed */
     overflow: hidden;
     z-index: 1000;
   }
-  #sidebar.collapsed {
-    width: 40px;
-  }
 
-  /* Hide elements when sidebar is collapsed */
-  #sidebar.collapsed h1,
-  #sidebar.collapsed #categoriesContainer,
-  #sidebar.collapsed #sidebar-search,
-  #sidebar.collapsed #sidebar-title {
-    display: none;
-  }
+  /* Hide elements if you still want to hide when collapsed (not needed here) */
+  /* Removed collapsed styles */
 
   /* Mode toggle icon (top-right) remains the same */
   #mode-toggle {
@@ -83,9 +75,9 @@
     z-index: 1100;
   }
 
-  /* Search box styles - with large space above */
+  /* Search box styles */
   #sidebar input[type="search"] {
-    margin-top: 0px; /* More space above */
+    margin-top: 0px;
     width: 100%;
     padding: 8px 12px;
     border-radius: 12px;
@@ -108,7 +100,7 @@
     color: var(--blue-color);
   }
 
-  /* New small stacked title styling */
+  /* Small stacked title styling */
   #sidebar-title {
     font-family: 'Pacifico', cursive;
     font-size: 1.2em; /* smaller size */
@@ -121,7 +113,7 @@
     color: var(--blue-color);
   }
 
-  /* Category buttons container, hidden when sidebar is collapsed */
+  /* Category buttons container */
   #categoriesContainer {
     display: flex;
     flex-direction: column;
@@ -140,24 +132,12 @@
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
   }
-  #sidebar.collapsed .category-btn {
-    padding: 8px;
-    font-size: 0;
-    border: none;
-  }
-  #sidebar.collapsed .category-btn span {
-    display: none;
-  }
 
   /* Main content styles */
 #content {
   margin-left: 140px;
   padding: 20px;
   flex: 1;
-  transition: margin-left 0.3s;
-}
-body.collapsed-sidebar #content {
-  margin-left: 60px;
 }
 
 /* Figures grid with more columns on large screens */
@@ -209,7 +189,7 @@ figcaption {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: var(--blue-color); /* same blue as title */
+  background: var(--blue-color);
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -225,7 +205,7 @@ figcaption {
   transform: scale(1.1);
 }
 
-/* Responsive message container */
+/* Message container styling */
 .message-container {
   max-width: 600px;
   margin: 20px auto;
@@ -241,9 +221,6 @@ figcaption {
 </head>
 <body>
 
-<!-- Sidebar toggle button -->
-<button id="sidebar-toggle" title="Collapse Sidebar">☰</button>
-
 <!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
 
@@ -251,7 +228,7 @@ figcaption {
 <div id="sidebar">
   <!-- Small stacked title -->
   <div id="sidebar-title">Celsians<br>Club</div>
-  <!-- Search bar below the title, will be hidden when collapsed -->
+  <!-- Search bar -->
   <input type="search" id="sidebar-search" placeholder="Search Bitcoin Cash" />
   <div id="categoriesContainer">
     <button class="category-btn" data-filter="All"><span>All</span></button>
@@ -268,7 +245,7 @@ figcaption {
 
 <!-- Main content -->
 <div id="content">
-  <!-- Instead of video, show message -->
+  <!-- Always show this message -->
   <div class="message-container">
     <p>If you accept Bitcoin Cash and want to get listed, please send an image and your site link to <a href="mailto:celsians@atomicmail.io">celsians@atomicmail.io</a>.</p>
   </div>
@@ -352,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize in dark mode
   document.body.classList.add('dark-mode');
 
-  // Mode toggle icon
+  // Mode toggle
   const modeToggle = document.getElementById('mode-toggle');
   modeToggle.innerHTML = '🌙';
   modeToggle.onclick = () => {
@@ -369,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateFigures();
   filterFigures('category', 'All');
 
-  // Sidebar search
+  // Search filtering
   document.getElementById('sidebar-search').addEventListener('input', e => {
     filterFigures('search', e.target.value.toLowerCase());
   });
@@ -381,15 +358,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  // Sidebar toggle
-  const sidebarToggleBtn = document.getElementById('sidebar-toggle');
-  const sidebar = document.getElementById('sidebar');
-
-  sidebarToggleBtn.onclick = () => {
-    sidebar.classList.toggle('collapsed');
-    document.body.classList.toggle('collapsed-sidebar');
-  };
-
+  // Remove sidebar toggle code entirely
+  // Remove or comment out any code related to toggling sidebar
+  // Remove the toggle button from HTML as well if you want
+  // And no toggle code in JS
+  // Also, remove any CSS related to collapsed class
+  // Done!
+  
   // Back to top
   window.addEventListener('scroll', () => {
     document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
