@@ -160,11 +160,18 @@ body.collapsed-sidebar #content {
   margin-left: 60px;
 }
 
- /* Figures grid */
+/* Figures grid with more columns on large screens */
 #figures {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 15px;
+}
+
+/* For screens wider than 1200px, display exactly 6 columns */
+@media (min-width: 1200px) {
+  #figures {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 /* Figures styling */
@@ -280,7 +287,7 @@ figcaption {
 
 <!-- Main content -->
 <div id="content">
-  <!-- Removed the previous main-title from here -->
+  <!-- Embedded video -->
   <div class="video-container" style="margin-top:10px;">
     <iframe src="https://www.youtube.com/embed/flPCk8Z5XS0" allowfullscreen></iframe>
   </div>
