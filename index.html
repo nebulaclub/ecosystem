@@ -18,6 +18,7 @@
     --figure-bg: #F3DCA3;
     --figure-shadow: rgba(0,0,0,0.1);
     --caption-color: #606060;
+    --blue-color: #66ccff; /* consistent blue color */
   }
 
   body.dark-mode {
@@ -53,7 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 180px;
+    width: 220px;
     transition: width 0.3s;
     overflow: hidden;
     z-index: 1000;
@@ -64,7 +65,8 @@
 
   /* Hide elements when sidebar is collapsed */
   #sidebar.collapsed h1,
-  #sidebar.collapsed #categoriesContainer {
+  #sidebar.collapsed #categoriesContainer,
+  #sidebar.collapsed #sidebar-search {
     display: none;
   }
 
@@ -80,9 +82,9 @@
     z-index: 1100;
   }
 
-  /* Search box styles - less vertical space */
+  /* Search box styles - with large space above */
   #sidebar input[type="search"] {
-    margin-top: 10px;
+    margin-top: 50px; /* More space above */
     width: 100%;
     padding: 8px 12px;
     border-radius: 12px;
@@ -95,12 +97,17 @@
     border-color: #0AC18E;
   }
 
-  /* The blue title style */
-  #sidebar h1 {
+  /* Title styling: hug the left, styled with fancy font and blue color */
+  #main-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    margin-top: 20px;
     margin-bottom: 10px;
+    margin-left: 0; /* Hug the left edge */
+    color: var(--blue-color);
   }
 
-  /* Category buttons container, hidden when collapsed */
+  /* Category buttons container, hidden when sidebar is collapsed */
   #categoriesContainer {
     display: flex;
     flex-direction: column;
@@ -139,7 +146,7 @@ body.collapsed-sidebar #content {
   margin-left: 60px;
 }
 
-/* Figures grid - flexible, flowing layout */
+ /* Figures grid */
 #figures {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -181,7 +188,7 @@ figcaption {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: #66ccff;
+  background: var(--blue-color); /* same blue as title */
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -197,7 +204,7 @@ figcaption {
   transform: scale(1.1);
 }
 
-/* Responsive video container for aspect ratio, hugging left */
+/* Responsive video container */
 .video-container {
   position: relative;
   width: 100%;
@@ -211,23 +218,38 @@ figcaption {
   width: 100%;
   height: 100%;
 }
+
+/* Sidebar toggle button styles */
+#sidebar-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1101;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--text-color);
+}
+#sidebar-toggle:hover {
+  color: #000;
+}
 </style>
 </head>
 <body>
 
-<!-- Removed toggle button code (since it's gone) -->
+<!-- Sidebar toggle button -->
+<button id="sidebar-toggle" title="Collapse Sidebar">☰</button>
 
-<!-- Dark/Light mode toggle icon -->
+<!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
 
 <!-- Sidebar -->
 <div id="sidebar">
-  <!-- Blue "Celsians Club" title above the search bar -->
-  <h1 style="color: white; font-family:'Pacifico', cursive; font-size:2em; margin-bottom:10px;">ℭ𝔢𝔩𝔰𝔦𝔞𝔫𝔰 ℭ𝔩𝔲𝔟</h1>
-  
-  <!-- Search bar below the title -->
+  <!-- Removed the title from here -->
+  <!-- Search bar below the title, will be hidden when collapsed -->
   <input type="search" id="sidebar-search" placeholder="Search Bitcoin Cash" />
-  
   <div id="categoriesContainer">
     <button class="category-btn" data-filter="All"><span>All</span></button>
     <button class="category-btn" data-filter="Mutual Aid"><span>Mutual Aid</span></button>
@@ -243,8 +265,8 @@ figcaption {
 
 <!-- Main content -->
 <div id="content">
-  <!-- Keep or remove the main title here -->
-  <!-- <h1 style="text-align:left; font-family:'Pacifico', cursive; font-size:2em; margin-top:20px;">𝕮𝖆𝖑𝖘𝖎𝖆𝖓𝖘 𝕮𝖑𝖚𝖇</h1> -->
+  <!-- Hugging the left with styled font and blue color -->
+  <h1 id="main-title">𝓒𝓮𝓵𝓼𝓲𝓪𝓷𝓼 𝓒𝓁𝓊𝓫</h1>
   
   <div class="video-container" style="margin-top:10px;">
     <iframe src="https://www.youtube.com/embed/flPCk8Z5XS0" allowfullscreen></iframe>
@@ -257,77 +279,29 @@ figcaption {
 <div id="backToTop">↑</div>
 
 <script>
-// Full figures array
+// Data for figures
 const figures = [
-  // Mutual Aid
-  { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Currumbin Wildlife Hospital", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Global Sanctuary for Elephants", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWylS6OEXxvnDZ%2BWUlatMS%2F%2FlXzeU2jazYw0AkugMKg%3D%3D", src: "https://i.postimg.cc/xNKj2W8y/treehousehumane.png", alt: "Tree House Humane Society", caption: "Tree House Humane Society", subcaption: "Mutual Aid Contract" },
-
-  // Commerce
-  { href: "https://www.redbubble.com/i/sticker/BitcoinCash-Accepted-Here-Stickers-by-dwnlives/145620413/7sgk", src: "https://i.postimg.cc/hhq5r7qN/bchsticker.png", alt: "BitcoinCash Stickers", caption: "BitcoinCash Stickers", subcaption: "Commerce" },
-  { href: "https://www.redbubble.com/i/mug/Party-Guru-by-dwnlives/169504252/7yqg", src: "https://i.postimg.cc/bdHFFNzM/gurumugparty.png", alt: "BCH Guru Coffee Mug", caption: "BCH Guru Coffee Mug", subcaption: "Commerce" },
-
-  // Community
-  { href: "https://www.coingecko.com/en/coins/celsius-network-token", src: "https://i.postimg.cc/nCcYYNH9/CEL-logo.png", alt: "CEL", caption: "CEL", subcaption: "Community Stats" },
-  { href: "https://www.coingecko.com/en/coins/mother-iggy", src: "https://i.postimg.cc/HrwnmCGT/MOTHER.png", alt: "MOTHER", caption: "MOTHER", subcaption: "Community Stats" },
-  { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://i.postimg.cc/Z9xTZ34q/gururewards.png", alt: "BCH Guru Rewards", caption: "BCH Guru Rewards", subcaption: "Mutual Aid Contract" },
-  { href: "https://unspent.cash/s?q=eJwrWymSdH7CRFfZ5OxNM76Iv93i%2FvP6vE96HWsApJUNtQ%3D%3D", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", alt: "CELQ Rewards", caption: "CELQ Rewards", subcaption: "Mutual Aid Contract" },
-  { href: "https://bchnostr.com/", src: "https://i.postimg.cc/Cx84BqXy/bchnostr.png", alt: "BCHNostr", caption: "BCHNostr", subcaption: "Community Social" },
-  { href: "https://gaze.cash/", src: "https://i.postimg.cc/QFzYNMpZ/gaze.png", alt: "Gaze.Cash", caption: "Gaze.Cash", subcaption: "Media Community" },
-  { href: "https://celsians.github.io/club/", src: "https://i.postimg.cc/7JrKvWPF/celsians-NEW.png", alt: "Celsians Club", caption: "Celsians Club", subcaption: "Support Community" },  
-
-  // DeFi
-  { href: "https://unspent.cash/", src: "https://i.postimg.cc/Hj5tX2Xh/unspent.png", alt: "Unspent", caption: "Unspent", subcaption: "DeFi" },
-  { href: "https://afifthofgaming.com/", src: "https://i.postimg.cc/r0RNhGbd/afog.png", alt: "AFOG", caption: "AFOG", subcaption: "DeFi" },
-  { href: "https://bchbull.com/", src: "https://i.postimg.cc/G8TxMPN8/bchbull-dark.png", alt: "BCH Bull", caption: "BCH Bull", subcaption: "DeFi" },
-  { href: "https://bch.games/", src: "https://i.postimg.cc/G8TxMPNs/BCHgames.png", alt: "BCH.games", caption: "BCH.games", subcaption: "DeFi" },
-  { href: "https://bchpump.cash/pump/about", src: "https://i.postimg.cc/MMfms041/bchpump.png", alt: "BCH PUMP", caption: "BCH PUMP", subcaption: "DeFi" },
-  { href: "https://www.cauldron.quest/", src: "https://i.postimg.cc/t7HBrwqP/cauldron.png", alt: "Cauldron DEX", caption: "Cauldron DEX", subcaption: "DeFi" },
-  { href: "https://tapswap.cash/", src: "https://i.postimg.cc/3WpZmBmt/tapsw-ap-dark.png", alt: "TapSwap DEX", caption: "TapSwap DEX", subcaption: "DeFi" },
-  { href: "https://dropship.cash/", src: "https://i.postimg.cc/QCC4916X/dropship-icon.png", alt: "DropShip", caption: "DropShip", subcaption: "DeFi" },
-  { href: "https://app.bch.guru/#/", src: "https://i.postimg.cc/CzxF7Db4/gurulogo.png", alt: "BCH Guru", caption: "BCH Guru", subcaption: "Predictions DeFi" },
-  { href: "https://tokenaut.cash/", src: "https://i.postimg.cc/7PtQvt6k/tokenaut.png", alt: "Tokenaut", caption: "Tokenaut", subcaption: "DeFi" },
-  { href: "defillama.com/chain/Bitcoincash", src: "https://i.postimg.cc/QKLkv9Gy/defillama.png", alt: "DeFi Llama", caption: "DeFi Llama", subcaption: "DeFi" },
-  { href: "https://paryonusd.com/app", src: "https://i.postimg.cc/xcnP4jdH/paryonusd.png", alt: "ParyonUSD", caption: "ParyonUSD", subcaption: "DeFi Borrowing" },
-
-  // Self Custody
-  { href: "https://wallet.bitcoin.com/", src: "https://i.postimg.cc/5Y4Jbm2P/bcom-logo.png", alt: "Bitcoin.com", caption: "Bitcoin.com", subcaption: "Self Custody" },
-  { href: "https://electroncash.org/", src: "https://i.postimg.cc/8JZS5r7B/electroncash.png", alt: "Electron Cash", caption: "Electron Cash", subcaption: "Self Custody" },
-  { href: "https://cakewallet.com/", src: "https://i.postimg.cc/MM6wqYp3/cakewallet.png", alt: "Cake Wallet", caption: "Cake Wallet", subcaption: "Self Custody" },
-  { href: "https://cashonize.com/", src: "https://i.postimg.cc/9Rm2CBQN/cashonize.png", alt: "Cashonize", caption: "Cashonize", subcaption: "Self Custody" },
-  { href: "https://cashaddress.org/", src: "https://i.postimg.cc/vgYybvZq/cashaddress.png", alt: "Cash Address", caption: "Cash Address", subcaption: "Self Custody" },
-  { href: "https://flowee.org/products/pay", src: "https://i.postimg.cc/vg0sB647/Flowee-Pay.png", alt: "Flowee Pay", caption: "Flowee Pay", subcaption: "Self Custody" },
-  { href: "https://www.optnlabs.com/", src: "https://i.postimg.cc/TLt6wWKJ/optn.png", alt: "OPTN", caption: "OPTN", subcaption: "Self Custody" },
-  { href: "https://www.paytaca.com/", src: "https://i.postimg.cc/2b0D6B1G/paytaca.png", alt: "Paytaca", caption: "Paytaca", subcaption: "Self Custody" },
-  { href: "https://selene.cash/", src: "https://i.postimg.cc/qh1TRCN1/selene.png", alt: "Selene", caption: "Selene", subcaption: "Self Custody" },
-  { href: "https://stackwallet.com/", src: "https://i.postimg.cc/0MVsQJzW/stack.png", alt: "Stack Wallet", caption: "Stack Wallet", subcaption: "Self Custody" },
-
-  // Privacy
-  { href: "https://cashfusion.org/", src: "https://i.postimg.cc/sMZyfX9B/Cash-Fusion.png", alt: "CashFusion", caption: "CashFusion", subcaption: "Privacy Protocol" },
-  { href: "https://ariavpn.net/", src: "https://i.postimg.cc/PC8hfxzP/aria.png", alt: "Aria", caption: "Aria", subcaption: "VPN Privacy" },
-  { href: "https://mullvad.net/en", src: "https://i.postimg.cc/v46M8BLD/mullvad.png", alt: "Mullvad", caption: "Mullvad", subcaption: "VPN Privacy" },
-  { href: "https://www.privateinternetaccess.com/", src: "https://i.postimg.cc/18NPRtcn/pia.png", alt: "PIA", caption: "PIA", subcaption: "VPN Privacy" },
-
-  // Explorers
-  { href: "https://cashtokenmarkets.bch-1.org/", src: "https://i.postimg.cc/k61x6Ft9/cashtokenmarkets.png", alt: "CashToken Markets", caption: "CashToken Markets", subcaption: "Explorers" },
-  { href: "https://3xpl.com/bitcoin-cash", src: "https://i.postimg.cc/VrGjrBbc/3xpl.png", alt: "3xpl", caption: "3xpl", subcaption: "Explorers" },
-  { href: "https://bchexplorer.cash/", src: "https://i.postimg.cc/9R8GRtqc/melroy.png", alt: "Melroy", caption: "Melroy", subcaption: "Explorers" },
-  { href: "https://blockchain.com/explorer/assets/bch", src: "https://i.postimg.cc/zbtnbSRr/blockchaincom.png", alt: "Blockchain.com", caption: "Blockchain.com", subcaption: "Explorers" },
-  { href: "https://blockchair.com/bitcoin-cash", src: "https://i.postimg.cc/BLYxLc14/blockchair.png", alt: "Blockchair", caption: "Blockchair", subcaption: "Explorers" },
-  { href: "https://tokenexplorer.cash/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BCMR Token", caption: "BCMR Token", subcaption: "Explorers" },
-  { href: "https://explorer.salemkode.com/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Salem Kode", caption: "Salem Kode", subcaption: "Explorers" },
-  { href: "https://cashflow.dev/graph", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "Cashflow", caption: "Cashflow", subcaption: "Explorers" },
-  { href: "https://tokenstork.com/", src: "https://i.postimg.cc/rKxMRX8v/Token-Stork.png", alt: "TokenStork", caption: "TokenStork", subcaption: "Explorers" },
-
-  // Informational
-  { href: "https://minisatoshi.cash/upgrade-history", src: "https://i.postimg.cc/zbpZhC6V/minisatoshi.png", alt: "Minisatoshi", caption: "Minisatoshi", subcaption: "Informational" },
-  { href: "https://bchfaq.com/", src: "https://i.postimg.cc/k6w3SQZk/BCHFAQ.png", alt: "Bitcoin Cash FAQ", caption: "Bitcoin Cash FAQ", subcaption: "Informational" },
-  { href: "https://www.youtube.com/@BitcoinCashUniversity", src: "https://i.postimg.cc/J0C19KQs/BCH-University.png", alt: "BCH University", caption: "BCH University", subcaption: "Informational" },
-  { href: "https://bitcoincash.org/", src: "https://i.postimg.cc/2VR4qxHq/bitcoincash.png", alt: "BitcoinCash.org", caption: "BitcoinCash.org", subcaption: "Informational" },
-  { href: "https://discover.cash/", src: "https://i.postimg.cc/ygn4RmtN/discover.png", alt: "Discover.Cash", caption: "Discover.Cash", subcaption: "Informational" },
-  { href: "https://whybitcoincash.com/", src: "https://i.postimg.cc/njTbm4gj/whybitcoincash.png", alt: "Why Bitcoin Cash", caption: "Why Bitcoin Cash", subcaption: "Informational" },
-  { href: "https://realbitcoin.cash/", src: "https://i.postimg.cc/TLQMbVFT/bitcoincash.png", alt: "Real Bitcoin Cash", caption: "Real Bitcoin Cash", subcaption: "Informational" },
+  { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Mutual Aid" },
+  { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Mutual Aid" },
+  { href: "https://unspent.cash/s?q=eJwrWylS6OEXxvnDZ%2BWUlatMS%2F%2FlXzeU2jazYw0AkugMKg%3D%3D", src: "https://i.postimg.cc/xNKj2W8y/treehousehumane.png", alt: "Tree House Humane Society", caption: "Mutual Aid" },
+  { href: "https://www.redbubble.com/i/sticker/BitcoinCash-Accepted-Here-Stickers-by-dwnlives/145620413/7sgk", src: "https://i.postimg.cc/hhq5r7qN/bchsticker.png", alt: "BitcoinCash Stickers", caption: "Commerce" },
+  { href: "https://www.redbubble.com/i/mug/Party-Guru-by-dwnlives/169504252/7yqg", src: "https://i.postimg.cc/bdHFFNzM/gurumugparty.png", alt: "BCH Guru Coffee Mug", caption: "Commerce" },
+  { href: "https://www.coingecko.com/en/coins/celsius-network-token", src: "https://i.postimg.cc/nCcYYNH9/CEL-logo.png", alt: "CEL", caption: "Community" },
+  { href: "https://www.coingecko.com/en/coins/mother-iggy", src: "https://i.postimg.cc/HrwnmCGT/MOTHER.png", alt: "MOTHER", caption: "Community" },
+  { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://i.postimg.cc/Z9xTZ34q/gururewards.png", alt: "BCH Guru Rewards", caption: "Community" },
+  { href: "https://unspent.cash/s?q=eJwrWymSdH7CRFfZ5OxNM76Iv93i%2FvP6vE96HWsApJUNtQ%3D%3D", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", alt: "CELQ Rewards", caption: "Community" },
+  { href: "https://bchnostr.com/", src: "https://i.postimg.cc/Cx84BqXy/bchnostr.png", alt: "BCHNostr", caption: "Community" },
+  { href: "https://unspent.cash/", src: "https://i.postimg.cc/Hj5tX2Xh/unspent.png", alt: "Unspent", caption: "DeFi" },
+  { href: "https://afifthofgaming.com/", src: "https://i.postimg.cc/r0RNhGbd/afog.png", alt: "AFOG", caption: "DeFi" },
+  { href: "https://bchbull.com/", src: "https://i.postimg.cc/G8TxMPN8/bchbull-dark.png", alt: "BCH Bull", caption: "DeFi" },
+  { href: "https://wallet.bitcoin.com/", src: "https://i.postimg.cc/5Y4Jbm2P/bcom-logo.png", alt: "Bitcoin.com", caption: "Self Custody" },
+  { href: "https://electroncash.org/", src: "https://i.postimg.cc/8JZS5r7B/electroncash.png", alt: "Electron Cash", caption: "Self Custody" },
+  { href: "https://cashfusion.org/", src: "https://i.postimg.cc/sMZyfX9B/Cash-Fusion.png", alt: "CashFusion", caption: "Privacy" },
+  { href: "https://ariavpn.net/", src: "https://i.postimg.cc/PC8hfxzP/aria.png", alt: "Aria", caption: "Privacy" },
+  { href: "https://cashtokenmarkets.bch-1.org/", src: "https://i.postimg.cc/k61x6Ft9/cashtokenmarkets.png", alt: "CashToken Markets", caption: "Explorers" },
+  { href: "https://3xpl.com/bitcoin-cash", src: "https://i.postimg.cc/VrGjrBbc/3xpl.png", alt: "3xpl", caption: "Explorers" },
+  { href: "https://minisatoshi.cash/upgrade-history", src: "https://i.postimg.cc/zbpZhC6V/minisatoshi.png", alt: "Minisatoshi", caption: "Informational" },
+  { href: "https://bchfaq.com/", src: "https://i.postimg.cc/k6w3SQZk/BCHFAQ.png", alt: "Bitcoin Cash FAQ", caption: "Informational" }
 ];
 
 function shuffleArray(array) {
@@ -406,7 +380,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  // No toggle button code, since it's removed
+  // Sidebar toggle
+  const sidebarToggleBtn = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+
+  sidebarToggleBtn.onclick = () => {
+    sidebar.classList.toggle('collapsed');
+    document.body.classList.toggle('collapsed-sidebar');
+  };
 
   // Back to top
   window.addEventListener('scroll', () => {
