@@ -55,117 +55,101 @@
     flex-direction: column;
     align-items: center;
     width: 140px;
-    transition: all 0.3s;
+    transition: width 0.3s;
+    overflow: hidden;
     z-index: 1000;
   }
-  #sidebar.hidden {
+  #sidebar.collapsed {
+    width: 40px;
+  }
+
+  /* Hide elements when sidebar is collapsed */
+  #sidebar.collapsed h1,
+  #sidebar.collapsed #categoriesContainer,
+  #sidebar.collapsed #sidebar-search,
+  #sidebar.collapsed #sidebar-title {
     display: none;
   }
 
-  /* Toggle container, always fixed, but only shown when sidebar is collapsed */
-  #toggle-container {
+  /* Mode toggle icon (top-right) remains the same */
+  #mode-toggle {
     position: fixed;
     top: 10px;
-    left: 10px;
-    background: rgba(255,255,255,0.8);
-    padding: 4px 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 1101;
-    display: none; /* default hidden */
-  }
-  /* Show toggle container only when body has class 'sidebar-collapsed' */
-body.sidebar-collapsed #toggle-container {
-    display: block;
+    right: 10px;
+    font-size: 1.2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
   }
 
-  /* Toggle button styles: no background container, just the button always visible */
-#sidebar-toggle {
-  font-size: 1.5em;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
-  color: var(--text-color);
-}
+  /* Search box styles - with large space above */
+  #sidebar input[type="search"] {
+    margin-top: 0px; /* More space above */
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-family: 'Ubuntu', Arial, sans-serif;
+    font-size: 14px;
+  }
+  #sidebar-search:focus {
+    box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
+    border-color: #0AC18E;
+  }
 
-#mode-toggle {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2em;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1100;
-}
+  /* Title styling: hug the left, styled with fancy font and blue color */
+  #main-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 0; /* Hug the left edge */
+    color: var(--blue-color);
+  }
 
-/* Search box styles */
-#sidebar input[type="search"] {
-  margin-top: 0px; /* More space above */
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-family: 'Ubuntu', Arial, sans-serif;
-  font-size: 14px;
-}
-#sidebar-search:focus {
-  box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
-  border-color: #0AC18E;
-}
+  /* New small stacked title styling */
+  #sidebar-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.2em; /* smaller size */
+    font-weight: normal;
+    margin-top: 10px; /* space above */
+    margin-bottom: 15px; /* space below */
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.2em;
+    color: var(--blue-color);
+  }
 
-/* Title styling */
-#main-title {
-  font-family: 'Pacifico', cursive;
-  font-size: 2em;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  margin-left: 0; /* Hug the left edge */
-  color: var(--blue-color);
-}
+  /* Category buttons container, hidden when sidebar is collapsed */
+  #categoriesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .category-btn {
+    padding: 8px 12px;
+    font-family: 'Ubuntu', Arial, sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: var(--category-bg, #fff);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  #sidebar.collapsed .category-btn {
+    padding: 8px;
+    font-size: 0;
+    border: none;
+  }
+  #sidebar.collapsed .category-btn span {
+    display: none;
+  }
 
-#sidebar-title {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.2em; /* smaller size */
-  font-weight: normal;
-  margin-top: 10px; /* space above */
-  margin-bottom: 15px; /* space below */
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 1.2em;
-  color: var(--blue-color);
-}
-
-/* Category buttons container, hidden when sidebar is collapsed */
-#categoriesContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-  margin-top: 10px;
-}
-.category-btn {
-  padding: 8px 12px;
-  font-family: 'Ubuntu', Arial, sans-serif;
-  font-size: 1em;
-  font-weight: bold;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background: var(--category-bg, #fff);
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-}
-#sidebar.collapsed .category-btn {
-  padding: 8px;
-  font-size: 0;
-  border: none;
-}
-#sidebar.collapsed .category-btn span {
-  display: none;
-}
-
-/* Main content styles */
+  /* Main content styles */
 #content {
   margin-left: 140px;
   padding: 20px;
@@ -175,21 +159,18 @@ body.sidebar-collapsed #toggle-container {
 body.collapsed-sidebar #content {
   margin-left: 60px;
 }
-body.sidebar-collapsed #content {
-  margin-left: 0;
-}
 
-/* Figures grid with more columns on large screens and smaller screens */
+/* Figures grid with more columns on large screens */
 #figures {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 15px;
 }
 
-/* For screens narrower than 600px, set exactly 3 columns */
-@media (max-width: 600px) {
+/* For screens wider than 1200px, display exactly 6 columns */
+@media (min-width: 1200px) {
   #figures {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 
@@ -209,8 +190,10 @@ figure:hover {
   box-shadow: 0 12px 20px rgba(0,0,0,0.7);
 }
 figure img {
-  width: 80px; /* smaller for better fit */
-  height: auto;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 figcaption {
   margin-top: 8px;
@@ -226,7 +209,7 @@ figcaption {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: var(--blue-color);
+  background: var(--blue-color); /* same blue as title */
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -242,31 +225,43 @@ figcaption {
   transform: scale(1.1);
 }
 
-/* Responsive video container using padding-top for compatibility */
+/* Responsive video container */
 .video-container {
   position: relative;
   width: 100%;
   max-width: 560px;
+  aspect-ratio: 16/9;
   margin-top: 10px;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
-  height: 0;
-  overflow: hidden;
 }
 .video-container iframe {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* Sidebar toggle button styles */
+#sidebar-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1101;
+  background: transparent;
   border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--text-color);
+}
+#sidebar-toggle:hover {
+  color: #000;
 }
 </style>
 </head>
 <body>
 
-<!-- Toggle button always visible, wrapped in a container that shows only when sidebar is collapsed -->
-<div id="toggle-container">
-  <button id="sidebar-toggle" title="Toggle Sidebar">☰</button>
-</div>
+<!-- Sidebar toggle button -->
+<button id="sidebar-toggle" title="Collapse Sidebar">☰</button>
 
 <!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
@@ -275,7 +270,7 @@ figcaption {
 <div id="sidebar">
   <!-- Small stacked title -->
   <div id="sidebar-title">Celsians<br>Club</div>
-  <!-- Search bar below the title -->
+  <!-- Search bar below the title, will be hidden when collapsed -->
   <input type="search" id="sidebar-search" placeholder="Search Bitcoin Cash" />
   <div id="categoriesContainer">
     <button class="category-btn" data-filter="All"><span>All</span></button>
@@ -290,6 +285,12 @@ figcaption {
   </div>
 </div>
 
+<!-- Main content -->
+<div id="content">
+  <!-- Embedded video -->
+  <div class="video-container" style="margin-top:10px;">
+    <iframe src="https://www.youtube.com/embed/flPCk8Z5XS0" allowfullscreen></iframe>
+  </div>
   <!-- Figures grid -->
   <div id="figures" style="margin-top:20px;"></div>
 </div>
@@ -298,7 +299,7 @@ figcaption {
 <div id="backToTop">↑</div>
 
 <script>
-// Data for figures (unchanged)
+// Data for figures
 const figures = [
   { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", alt: "Currumbin Wildlife Hospital", caption: "Mutual Aid" },
   { href: "https://unspent.cash/s?q=eJwrWyly6%2FGBQ1J7kj4zcBz4NT1vk0%2FSztpbHWsAtGYOCQ%3D%3D", src: "https://i.postimg.cc/jnzqbG26/elephants.png", alt: "Global Sanctuary for Elephants", caption: "Mutual Aid" },
@@ -399,19 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   });
 
-  // Toggle sidebar
+  // Sidebar toggle
+  const sidebarToggleBtn = document.getElementById('sidebar-toggle');
   const sidebar = document.getElementById('sidebar');
-  const toggleContainer = document.getElementById('toggle-container');
-  const toggleButton = document.getElementById('sidebar-toggle');
 
-  toggleButton.onclick = () => {
-    // Toggle sidebar visibility
-    sidebar.classList.toggle('hidden');
-    // Toggle class on body to show/hide the toggle container
-    document.body.classList.toggle('sidebar-collapsed');
+  sidebarToggleBtn.onclick = () => {
+    sidebar.classList.toggle('collapsed');
+    document.body.classList.toggle('collapsed-sidebar');
   };
 
-  // Show/hide Back to Top
+  // Back to top
   window.addEventListener('scroll', () => {
     document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
   });
