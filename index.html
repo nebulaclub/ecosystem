@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Celsians Club</title>
+<title>NIGHT CLUB CALM BLUE PARTICLE BACKGROUND</title>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
@@ -48,7 +48,18 @@
     color: var(--text-color);
     display: flex;
     min-height: 100vh;
+    overflow: hidden; /* Prevent scrollbars due to canvas */
   }
+  /* Canvas for particles background */
+  #particle-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind everything */
+  }
+
   #sidebar {
     position: fixed;
     top: 0; left: 0;
@@ -128,6 +139,7 @@
     margin-left: 140px;
     padding: 20px;
     flex: 1;
+    position: relative; /* For layout */
   }
   #figures {
     display: grid;
@@ -181,6 +193,7 @@
     justify-content: center;
     box-shadow: 0 4px 8px var(--shadow-color);
     cursor: pointer;
+    z-index: 1101;
   }
   #backToTop:hover {
     background: #55bbee;
@@ -193,6 +206,9 @@
 </style>
 </head>
 <body>
+
+<!-- Particle background canvas -->
+<canvas id="particle-background"></canvas>
 
 <!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
@@ -225,6 +241,81 @@
 <div id="backToTop">↑</div>
 
 <script>
+  // --- Particles Effect ---
+  const canvas = document.getElementById('particle-background');
+  const ctx = canvas.getContext('2d');
+
+  let particlesArray = [];
+  let mouse = { x: null, y: null, radius: 150 };
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Track mouse movement
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 1;
+      this.baseX = this.x;
+      this.baseY = this.y;
+      this.vx = (Math.random() - 0.5) * 0.2; // gentle drift
+      this.vy = (Math.random() - 0.5) * 0.2;
+    }
+    update() {
+      // Slight drifting
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Keep within bounds
+      if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+      if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+
+      // React to mouse proximity for a subtle glow effect
+      const dx = this.x - mouse.x;
+      const dy = this.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      this.alpha = dist < mouse.radius ? 0.6 : 0.3;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(102, 204, 255, ${this.alpha})`;
+      ctx.shadowColor = `rgba(102, 204, 255, ${this.alpha})`;
+      ctx.shadowBlur = 10;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particlesArray = [];
+    for (let i=0; i<120; i++) {
+      particlesArray.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (let p of particlesArray) {
+      p.update();
+      p.draw();
+    }
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+
+  // --- Webpage Content & Logic ---
   const figures = [
     // Full figures data:
     // Mutual Aid
@@ -341,11 +432,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Initiate dark mode
-    document.body.classList.add('dark-mode');
-
-    // Toggle mode
+    // Mode toggle
     const modeToggle = document.getElementById('mode-toggle');
+    document.body.classList.add('dark-mode');
     modeToggle.innerHTML = '🌙';
     modeToggle.onclick = () => {
       document.body.classList.toggle('dark-mode');
@@ -355,7 +444,6 @@
         modeToggle.innerHTML = '☀️';
       }
     };
-
     // Populate figures
     shuffleArray(figures);
     populateFigures();
@@ -365,14 +453,12 @@
     document.getElementById('sidebar-search').addEventListener('input', e => {
       filterFigures('search', e.target.value.toLowerCase());
     });
-
     // Category buttons
     document.querySelectorAll('.category-btn').forEach(btn => {
       btn.onclick = () => {
         filterFigures('category', btn.dataset.filter);
       };
     });
-
     // Back to top
     window.addEventListener('scroll', () => {
       document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
@@ -382,6 +468,7 @@
     };
   });
 </script>
-
+</body>
+</html>
 </body>
 </html>
