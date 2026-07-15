@@ -31,173 +31,115 @@
     --figure-shadow: rgba(0,0,0,0.7);
     --caption-color: #aaa;
   }
-  /* Remove focus outlines and all default cursors */
-  *:focus {
-    outline: none;
-    box-shadow: none;
-  }
+  *:focus { outline: none; box-shadow: none; }
   * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    cursor: default;
+    box-sizing: border-box; margin: 0; padding: 0; cursor: default;
   }
   body {
     font-family: 'Ubuntu', Arial, sans-serif;
     background: var(--bg-color);
     color: var(--text-color);
-    display: flex;
-    min-height: 100vh;
+    display: flex; min-height: 100vh;
   }
   #sidebar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 100%;
+    position: fixed; top: 0; left: 0; height: 100%;
     background: var(--figure-bg);
     box-shadow: 2px 0 4px var(--shadow-color);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 140px;
-    transition: none;
-    overflow: hidden;
-    z-index: 1000;
+    padding: 10px; display: flex; flex-direction: column; align-items: center;
+    width: 140px; overflow: hidden; z-index: 1000;
   }
   #mode-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2em;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1100;
+    position: fixed; top: 10px; right: 10px; font-size: 1.2em;
+    background: none; border: none; cursor: pointer; z-index: 1100;
   }
   #sidebar input[type="search"] {
-    margin-top: 0px;
-    width: 100%;
-    padding: 8px 12px;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 14px;
+    margin-top: 0; width: 100%; padding: 8px 12px; border-radius: 12px;
+    border: 1px solid #ccc; font-family: 'Ubuntu'; font-size: 14px;
   }
   #sidebar-search:focus {
     box-shadow: 0 0 8px rgba(10, 193, 142, 0.6);
     border-color: #0AC18E;
   }
   #main-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 2em;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    margin-left: 0;
-    color: var(--blue-color);
+    font-family: 'Pacifico', cursive; font-size: 2em; margin: 20px 0 10px 0; color: var(--blue-color);
   }
   #sidebar-title {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.2em;
-    font-weight: normal;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    text-align: center;
-    letter-spacing: 1px;
-    line-height: 1.2em;
-    color: var(--blue-color);
+    font-family: 'Pacifico', cursive; font-size: 1.2em; text-align: center; margin: 10px 0 15px 0; color: var(--blue-color);
+    letter-spacing: 1px; line-height: 1.2em; font-weight: normal;
   }
   #categoriesContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    margin-top: 10px;
+    display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 10px;
   }
   .category-btn {
-    padding: 8px 12px;
-    font-family: 'Ubuntu', Arial, sans-serif;
-    font-size: 1em;
-    font-weight: bold;
-    border: 1px solid #555;
-    border-radius: 4px;
-    background: var(--category-bg, #fff);
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    padding: 8px 12px; font-family: 'Ubuntu'; font-size: 1em; font-weight: bold;
+    border: 1px solid #555; border-radius: 4px; background: var(--category-bg, #fff);
+    cursor: pointer; transition: background 0.2s, border-color 0.2s;
   }
   #content {
-    margin-left: 140px;
-    padding: 20px;
-    flex: 1;
+    margin-left: 140px; padding: 20px; flex: 1;
   }
   #figures {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
   }
   @media (min-width: 1200px) {
-    #figures {
-      grid-template-columns: repeat(6, 1fr);
-    }
+    #figures { grid-template-columns: repeat(6, 1fr); }
   }
   figure {
-    background: var(--figure-bg);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px var(--figure-shadow);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: 0.3s;
+    background: var(--figure-bg); border-radius: 12px; box-shadow: 0 4px 8px var(--figure-shadow);
+    padding: 10px; display: flex; flex-direction: row; align-items: flex-start; transition: 0.3s; cursor: pointer; position: relative;
   }
   figure:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(0,0,0,0.7);
+    transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.7);
   }
-  figure img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 8px;
+  figure a { display: flex; flex-direction: row; align-items: center; }
+  figure img { width: 70px; height: 70px; object-fit: contain; border-radius: 8px; margin-right: 10px; }
+  .fig-details {
+    display: flex; flex-direction: column; justify-content: flex-start; flex: 1; position: relative;
+  }
+  .fig-text {
+    display: flex; flex-direction: column;
   }
   figcaption {
-    margin-top: 8px;
-    font-size: 0.75em;
-    color: var(--caption-color);
-    text-align: center;
+    margin-top: 4px; font-size: 0.75em; font-weight: bold; color: var(--caption-color); text-align: left;
   }
-  #backToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: var(--blue-color);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.5em;
+  .stats {
+    margin-top: 4px; font-size: 0.75em; font-style: italic; color: var(--caption-color);
+  }
+  /* hide stats initially, show when 'show-stats' class added */
+  .fig-details .stats {
     display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 8px var(--shadow-color);
-    cursor: pointer;
   }
-  #backToTop:hover {
-    background: #55bbee;
+  .show-stats .stats {
+    display: block;
+  }
+  /* "i" icon fixed at bottom right corner of figure, always visible, no movement on toggle */
+  .info-icon {
+    position: absolute; bottom: 8px; right: 8px; width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold;
+    color: #222; background: rgba(255,255,255,0.8); border-radius: 50%; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .info-icon:hover {
+    background: rgba(255,255,255,1);
     transform: scale(1.1);
   }
+  #backToTop {
+    position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+    background: var(--blue-color); color: #fff; border: none; border-radius: 50%; font-size: 1.5em;
+    display: none; align-items: center; justify-content: center; box-shadow: 0 4px 8px var(--shadow-color); cursor: pointer;
+  }
+  #backToTop:hover {
+    background: #55bbee; transform: scale(1.1);
+  }
   .message-container a {
-    color: var(--blue-color);
-    text-decoration: underline;
+    color: var(--blue-color); text-decoration: underline;
   }
 </style>
 </head>
 <body>
 
-<!-- Mode toggle icon -->
 <button id="mode-toggle" title="Toggle Light/Dark">🌙</button>
 
-<!-- Sidebar -->
 <div id="sidebar">
   <div id="sidebar-title">Celsians<br>Club</div>
   <input type="search" id="sidebar-search" placeholder="Search..." />
@@ -211,7 +153,6 @@
   </div>
 </div>
 
-<!-- Main content -->
 <div id="content">
   <div class="message-container">
     <p>Accept Bitcoin Cash and want to get listed?<br> Send image and site link to <a href="mailto:celsians@atomicmail.io">celsians@atomicmail.io</a></p>
@@ -219,15 +160,14 @@
   <div id="figures" style="margin-top:20px;"></div>
 </div>
 
-<!-- Back to Top Button -->
 <div id="backToTop">↑</div>
 
 <script>
-  const figures = [
+const figures = [
     // DeFi Community / Commerce
-    { href: "https://app.cauldron.quest/swap/5932b2fd4915d6a75d3ec53282cd49118149a2176ee67ed68b1111ff0786f7fc", src: "https://i.postimg.cc/NLTr7LCV/LIFT.png", caption: "0.1% APY | LIFT", subcaption: "DeFi Community" },
-    { href: "https://app.cauldron.quest/swap/d9ab24ed15a7846cc3d9e004aa5cb976860f13dac1ead05784ee4f4622af96ea", src: "https://i.postimg.cc/BLynqgYd/furu.png", caption: "1.5% APY | FURU", subcaption: "DeFi Community" },
-    { href: "https://app.cauldron.quest/swap/80cf212abf3b910f097c2d94eeb04d8e929d4ae6e3ad9c7b1df6cfff35b8ed71", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", caption: "30% APY | CELQ", subcaption: "DeFi Community" },
+    { href: "https://app.cauldron.quest/swap/5932b2fd4915d6a75d3ec53282cd49118149a2176ee67ed68b1111ff0786f7fc", src: "https://i.postimg.cc/NLTr7LCV/LIFT.png", caption: "0.1% APY | LIFT", subcaption: "DeFi Community", stats: "Market cap: $10M" },
+    { href: "https://app.cauldron.quest/swap/d9ab24ed15a7846cc3d9e004aa5cb976860f13dac1ead05784ee4f4622af96ea", src: "https://i.postimg.cc/BLynqgYd/furu.png", caption: "1.5% APY | FURU", subcaption: "DeFi Community", stats: "Total liquidity: $5M" },
+    { href: "https://app.cauldron.quest/swap/80cf212abf3b910f097c2d94eeb04d8e929d4ae6e3ad9c7b1df6cfff35b8ed71", src: "https://i.postimg.cc/fVcysQG2/CELQ.png", caption: "30% APY | CELQ", subcaption: "DeFi Community", stats: "Active users: 1500" },
     { href: "https://unspent.cash/s?q=eJxbKeLPXbigc2Whxc%2FyGRoWr%2BfmlEsxNLcDAHgMCfs%3D", src: "https://i.postimg.cc/WhhBvVgX/eatbch.png", caption: "eatBCH Unspent", subcaption: "DeFi Community" },
     { href: "https://unspent.cash/s?q=eJwrWykykbedNf759fc8pXPbP%2B24mb%2FzAFNMxxoAn5gNDA%3D%3D", src: "https://i.postimg.cc/qzpfj032/bchguru.png", caption: "0.28% APY | Guru Unspent", subcaption: "DeFi Community" },
     { href: "https://unspent.cash/s?q=eJwrWymSLzSVO30Nv5%2Fkk3XaCw9OqzV5%2F2J5xxoAhj0L9g%3D%3D", src: "https://i.postimg.cc/8Ft68f9T/koala.png", caption: "Currumbin Wildlife Hospital Unspent", subcaption: "DeFi Community" },
@@ -294,91 +234,98 @@
     { href: "https://realbitcoin.cash/", src: "https://i.postimg.cc/TLQMbVFT/bitcoincash.png", caption: "Real Bitcoin Cash", subcaption: "Informational" },
   ];
 
-  function shuffleArray(array) {
-    for (let i=array.length-1; i>0; i--) {
-      const j = Math.floor(Math.random() * (i+1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+function shuffleArray(array) {
+  for (let i=array.length-1; i>0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
+}
 
-  function populateFigures() {
-    const container = document.getElementById('figures');
-    container.innerHTML = '';
-    figures.forEach(item => {
-      const figure = document.createElement('figure');
-      figure.setAttribute('data-category', item.subcaption);
-      figure.innerHTML = `
-        <a href="${item.href}" target="_blank" rel="noopener noreferrer">
-          <img src="${item.src}">
-        </a>
-        <figcaption>${item.caption}</figcaption>
-      `;
-      container.appendChild(figure);
-    });
-  }
-
-  function filterFigures(type, value) {
-    document.querySelectorAll('#figures figure').forEach(fig => {
-      const category = fig.dataset.category.toLowerCase();
-      const captionText = fig.querySelector('figcaption').innerText.toLowerCase();
-      if (type === 'category') {
-        if (value.toLowerCase() === 'all' || category === value.toLowerCase()) {
-          fig.style.display = '';
-        } else {
-          fig.style.display = 'none';
-        }
-      } else if (type === 'search') {
-        if (value === 'all' || category.includes(value) || captionText.includes(value)) {
-          fig.style.display = '';
-        } else {
-          fig.style.display = 'none';
-        }
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // Initiate dark mode
-    document.body.classList.add('dark-mode');
-
-    // Toggle mode
-    const modeToggle = document.getElementById('mode-toggle');
-    modeToggle.innerHTML = '🌙';
-    modeToggle.onclick = () => {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        modeToggle.innerHTML = '🌙';
-      } else {
-        modeToggle.innerHTML = '☀️';
-      }
+function populateFigures() {
+  const container = document.getElementById('figures');
+  container.innerHTML = '';
+  figures.forEach(item => {
+    const figure = document.createElement('figure');
+    figure.setAttribute('data-category', item.subcaption);
+    figure.onclick = () => {
+      figure.classList.toggle('show-stats');
     };
-
-    // Populate figures
-    shuffleArray(figures);
-    populateFigures();
-    filterFigures('category', 'All');
-
-    // Search filter
-    document.getElementById('sidebar-search').addEventListener('input', e => {
-      filterFigures('search', e.target.value.toLowerCase());
-    });
-
-    // Category buttons
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.onclick = () => {
-        filterFigures('category', btn.dataset.filter);
-      };
-    });
-
-    // Back to top
-    window.addEventListener('scroll', () => {
-      document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
-    });
-    document.getElementById('backToTop').onclick = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    figure.innerHTML = `
+      <a href="${item.href}" target="_blank" rel="noopener noreferrer">
+        <img src="${item.src}">
+      </a>
+      <div class="fig-details">
+        <div class="fig-text">
+          <figcaption>${item.caption}</figcaption>
+          <div class="stats">${item.stats}</div>
+        </div>
+      </div>
+      <div class="info-icon" title="Show/hide stats">i</div>
+    `;
+    // Add click handler for the "i"
+    const infoIcon = figure.querySelector('.info-icon');
+    infoIcon.onclick = (e) => {
+      e.stopPropagation();
+      figure.classList.toggle('show-stats');
     };
+    container.appendChild(figure);
   });
-</script>
+}
 
+function filterFigures(type, value) {
+  document.querySelectorAll('#figures figure').forEach(fig => {
+    const category = fig.dataset.category.toLowerCase();
+    const captionText = fig.querySelector('figcaption').innerText.toLowerCase();
+    const statsText = fig.querySelector('.stats').innerText.toLowerCase();
+    if (type === 'category') {
+      if (value.toLowerCase() === 'all' || category === value.toLowerCase()) {
+        fig.style.display = '';
+      } else {
+        fig.style.display = 'none';
+      }
+    } else if (type === 'search') {
+      if (value === 'all' || category.includes(value) || captionText.includes(value) || statsText.includes(value)) {
+        fig.style.display = '';
+      } else {
+        fig.style.display = 'none';
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Dark mode toggle
+  document.body.classList.add('dark-mode');
+  const modeToggle = document.getElementById('mode-toggle');
+  modeToggle.innerHTML = '🌙';
+  modeToggle.onclick = () => {
+    document.body.classList.toggle('dark-mode');
+    modeToggle.innerHTML = document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+  };
+
+  // Populate figures
+  shuffleArray(figures);
+  populateFigures();
+  filterFigures('category', 'All');
+
+  // Search filter
+  document.getElementById('sidebar-search').addEventListener('input', e => {
+    filterFigures('search', e.target.value.toLowerCase());
+  });
+
+  // Category buttons
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.onclick = () => { filterFigures('category', btn.dataset.filter); };
+  });
+
+  // Back to top
+  window.addEventListener('scroll', () => {
+    document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'flex' : 'none';
+  });
+  document.getElementById('backToTop').onclick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+});
+</script>
 </body>
 </html>
